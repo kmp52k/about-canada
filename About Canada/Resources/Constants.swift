@@ -17,4 +17,6 @@ struct Constants {
     static let noConnectivityMessage = "No Internet. Check your data/wifi settings and try again."
     static let errorMessage = "Something went wrong. Try again later."
     
+    static let serviceURLString = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+    
 }

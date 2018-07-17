@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B2FA2A620FE445B00B5BED9 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A520FE445B00B5BED9 /* ArticleCell.swift */; };
+		5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A720FE447600B5BED9 /* ArticleModel.swift */; };
+		5B2FA2AA20FE44AC00B5BED9 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */; };
+		5B2FA2AC20FE44CD00B5BED9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2AB20FE44CD00B5BED9 /* AboutViewController.swift */; };
+		5B2FA2AE20FE5F4C00B5BED9 /* AboutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2AD20FE5F4C00B5BED9 /* AboutModel.swift */; };
 		5B46348420FDEE4200995DDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B46348320FDEE4200995DDF /* AppDelegate.swift */; };
 		5B46348620FDEE4200995DDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B46348520FDEE4200995DDF /* ViewController.swift */; };
 		5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348A20FDEE4300995DDF /* Assets.xcassets */; };
 		5B46348E20FDEE4300995DDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348C20FDEE4300995DDF /* LaunchScreen.storyboard */; };
 		5B4634C820FE1CF400995DDF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4634C720FE1CF400995DDF /* Constants.swift */; };
+		5B6FA01520FE666F00737E8A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Service.swift */; };
 		8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_About_Canada.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		536C028658C19FF4699848E3 /* Pods-About Canada.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.debug.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.debug.xcconfig"; sourceTree = "<group>"; };
+		5B2FA2A520FE445B00B5BED9 /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		5B2FA2A720FE447600B5BED9 /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
+		5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
+		5B2FA2AB20FE44CD00B5BED9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		5B2FA2AD20FE5F4C00B5BED9 /* AboutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModel.swift; sourceTree = "<group>"; };
 		5B46348020FDEE4200995DDF /* About Canada.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "About Canada.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B46348320FDEE4200995DDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B46348520FDEE4200995DDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,6 +36,7 @@
 		5B46348D20FDEE4300995DDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B46348F20FDEE4300995DDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B4634C720FE1CF400995DDF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5B6FA01420FE666F00737E8A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.release.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,6 +59,14 @@
 				A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5B2FA2A420FE440B00B5BED9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5B2FA2A520FE445B00B5BED9 /* ArticleCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		5B46347720FDEE4200995DDF = {
@@ -72,6 +92,7 @@
 			children = (
 				5B4634C520FE1B4900995DDF /* Controller */,
 				5B4634C220FE1B0E00995DDF /* Model */,
+				5B2FA2A420FE440B00B5BED9 /* View */,
 				5B4634C420FE1B3800995DDF /* ViewModel */,
 				5B4634C620FE1B5300995DDF /* Resources */,
 			);
@@ -81,6 +102,8 @@
 		5B4634C220FE1B0E00995DDF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5B2FA2A720FE447600B5BED9 /* ArticleModel.swift */,
+				5B2FA2AD20FE5F4C00B5BED9 /* AboutModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -88,6 +111,7 @@
 		5B4634C420FE1B3800995DDF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -95,8 +119,9 @@
 		5B4634C520FE1B4900995DDF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5B46348520FDEE4200995DDF /* ViewController.swift */,
+				5B2FA2AB20FE44CD00B5BED9 /* AboutViewController.swift */,
 				5B46348320FDEE4200995DDF /* AppDelegate.swift */,
+				5B46348520FDEE4200995DDF /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -106,6 +131,7 @@
 			children = (
 				5B46348A20FDEE4300995DDF /* Assets.xcassets */,
 				5B4634C720FE1CF400995DDF /* Constants.swift */,
+				5B6FA01420FE666F00737E8A /* Service.swift */,
 				5B46348F20FDEE4300995DDF /* Info.plist */,
 				5B46348C20FDEE4300995DDF /* LaunchScreen.storyboard */,
 			);
@@ -217,14 +243,12 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -238,9 +262,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2FA2A620FE445B00B5BED9 /* ArticleCell.swift in Sources */,
+				5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */,
 				5B46348620FDEE4200995DDF /* ViewController.swift in Sources */,
+				5B2FA2AC20FE44CD00B5BED9 /* AboutViewController.swift in Sources */,
+				5B2FA2AA20FE44AC00B5BED9 /* ArticleViewModel.swift in Sources */,
+				5B6FA01520FE666F00737E8A /* Service.swift in Sources */,
 				5B46348420FDEE4200995DDF /* AppDelegate.swift in Sources */,
 				5B4634C820FE1CF400995DDF /* Constants.swift in Sources */,
+				5B2FA2AE20FE5F4C00B5BED9 /* AboutModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
