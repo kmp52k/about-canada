@@ -6,17 +6,34 @@
 //  Copyright © 2018 PwC. All rights reserved.
 //
 
+import Alamofire
+import AlamofireImage
 import UIKit
 
 struct ArticleViewModel {
-    let title: String
-    let description: String
-    let imageHref: String
+    
+    var imageURL = ""
+    var noURL = false
+    
+    let articleName: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let articleImage: UIImageView = {
+        let view = UIImageView(image: Constants.noImage)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = UIViewContentMode.scaleAspectFit
+        return view
+    }()
     
     // Dependancy Injection (DI)
     init(article: Article) {
-        self.title = article.title ?? ""
-        self.description = article.title ?? ""
-        self.imageHref = article.imageHref ?? ""
+        self.articleName.text = article.title
+        if let url = article.imageHref {
+            self.imageURL = url
+        }
     }
+
 }
