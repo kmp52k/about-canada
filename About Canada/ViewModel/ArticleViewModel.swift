@@ -7,7 +7,6 @@
 //
 
 import Alamofire
-import AlamofireImage
 import UIKit
 
 struct ArticleViewModel {
@@ -15,30 +14,34 @@ struct ArticleViewModel {
     var title: String
     var imageURL: String
     var description: String
-
-    let articleName: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let articleImage: UIImageView = {
-        let view = UIImageView(image: Constants.noImage)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = UIViewContentMode.scaleAspectFit
-        return view
-    }()
+    var descriptionHeight: CGFloat = 0
+    var size: CGSize
     
     // Dependancy Injection (DI)
-    init(article: Article) {
-        self.articleName.text = article.title
+    init(article: Article, size: CGSize) {
         self.title = article.title!
-        self.description = String(describing: article.description)
+        self.size = size
+        if let dscr = article.description {
+            self.description = dscr
+        } else {
+            self.description = ""
+        }
         if let url = article.imageHref {
             self.imageURL = url
         } else {
             self.imageURL = "http://"
         }
+        self.descriptionHeight = calculateDescriptionHeight()
+    }
+    
+    func calculateDescriptionHeight() -> CGFloat {
+        let approxwidth = self.size.width - 28 - 100 - 30
+        let size = CGSize(width: approxwidth, height: 1000)
+        let estimatedFrame = NSString(string: self.description).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 14)], context: nil)
+        if estimatedFrame.height < (118 - 48) {
+            return 118
+        }
+        return estimatedFrame.height + 48
     }
 
 }

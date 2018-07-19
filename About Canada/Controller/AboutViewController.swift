@@ -16,13 +16,23 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
     
     let articleCellIdentifier: String = Constants.articleCellIdentifier
     let errorCellIdentifier: String = Constants.errorCellIdentifier
+    let activity: UIActivityIndicatorView = Utils.shared.activityIndicatorView
     var navigationTitle: UILabel?
     var aboutError: AboutError?
     var about: About?
     var articleViewModels: [ArticleViewModel] = []
+    var layout: UICollectionViewFlowLayout? { get { return collectionViewLayout as? UICollectionViewFlowLayout } }
+    var navBarView: UIView?
+    
+    init() {
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.setupView()
         self.getAboutData()
@@ -31,6 +41,8 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.collectionView?.collectionViewLayout.invalidateLayout()
+        if size.height < size.width { self.navBarView?.isHidden = true }
+        else { self.navBarView?.isHidden = false }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -41,7 +53,6 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
             return errorCell
         } else {
             let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: articleCellIdentifier, for: indexPath) as! ArticleCell
-            articleCell.backgroundColor = UIColor.yellow
             articleCell.article = articleViewModels[indexPath.row]
             return articleCell
         }
@@ -60,15 +71,20 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         
         let height = collectionView.frame.height + collectionView.contentOffset.y
         if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
-        else { return CGSize(width: collectionView.frame.width - 20, height: Constants.articleHeight) }
+        else {
+            return CGSize(width: collectionView.frame.width - 28, height: articleViewModels[indexPath.row].descriptionHeight)
+        }
     }
     
     
     
     private func setupView() {
+        self.collectionView?.addSubview(activity)
+        self.activity.anchorCenterSuperview()
+        self.activity.startAnimating()
+//        self.collectionView?.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         self.collectionView?.backgroundColor = UIColor.white
-        self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: articleCellIdentifier)
-        self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: errorCellIdentifier)
+        
         self.navigationItem.title = Constants.navBarTitle
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationTitle = {
@@ -80,6 +96,14 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
             return label
         }()
         self.navigationItem.titleView = self.navigationTitle
+        
+        self.layout?.minimumInteritemSpacing = 14
+        self.layout?.minimumLineSpacing = 14
+        self.layout?.sectionInset = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+        
+        self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: articleCellIdentifier)
+        self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: errorCellIdentifier)
+        
     }
     
     private func getAboutData() {
@@ -87,6 +111,7 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
             let network = try Utils.shared.isNetworkAvailable()
             if network {
                 Alamofire.request(Constants.serviceURLString).responseString(completionHandler: { (response) in
+                    self.activity.stopAnimating()
                     if let dataString = response.value {
                         self.updateViewWithData(data: dataString)
                     } else {
@@ -118,7 +143,7 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
             if !(self.about?.rows?.isEmpty)! {
                 for article in (self.about?.rows)! {
                     guard let _ = article.title else { continue }
-                    let articleVM = ArticleViewModel(article: article)
+                    let articleVM = ArticleViewModel(article: article, size: (self.collectionView?.frame.size)!)
                     self.articleViewModels.append(articleVM)
                 }
             }
@@ -128,6 +153,5 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
             self.updateViewWithError(aboutError: AboutError.invalidJSON)
         }
     }
-    
     
 }

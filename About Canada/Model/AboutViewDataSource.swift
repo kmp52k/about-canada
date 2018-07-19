@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AboutViewDataSource.swift
 //  About Canada
 //
 //  Created by Krunal Purohit on 17/07/18.

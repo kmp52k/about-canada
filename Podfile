@@ -8,7 +8,7 @@ target 'About Canada' do
   # Pods for About Canada
 
 pod 'Alamofire', '~> 4.7'
-pod 'AlamofireImage', '~> 3.3'
+# pod 'AlamofireImage', '~> 3.3'
 pod 'SnapKit', '~> 4.0.0'
 # pod 'SwiftyJSON', '~> 4.0'
 

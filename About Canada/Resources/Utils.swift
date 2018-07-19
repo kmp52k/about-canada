@@ -7,13 +7,20 @@
 //
 
 import Alamofire
-import Foundation
+import UIKit
+
+
+// MARK:- Utils
 
 class Utils {
     
     public static let shared = Utils()
-    
-    private init() { }
+    public let activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        aiv.hidesWhenStopped = true
+        aiv.color = .black
+        return aiv
+    }()
     
     public func isNetworkAvailable() throws -> Bool {
         let reachability = NetworkReachabilityManager()
@@ -43,4 +50,6 @@ class Utils {
             throw AboutError.invalidJSON
         }
     }
+    
+    private init() { }
 }
