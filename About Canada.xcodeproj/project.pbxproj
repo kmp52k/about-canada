@@ -16,9 +16,10 @@
 		5B3591D220FF72150015AC5C /* ErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3591D120FF72150015AC5C /* ErrorCell.swift */; };
 		5B46348420FDEE4200995DDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B46348320FDEE4200995DDF /* AppDelegate.swift */; };
 		5B46348620FDEE4200995DDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B46348520FDEE4200995DDF /* ViewController.swift */; };
-        5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348A20FDEE4300995DDF /* Assets.xcassets */; };
+		5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348A20FDEE4300995DDF /* Assets.xcassets */; };
 		5B46348E20FDEE4300995DDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348C20FDEE4300995DDF /* LaunchScreen.storyboard */; };
 		5B4634C820FE1CF400995DDF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4634C720FE1CF400995DDF /* Constants.swift */; };
+		5B54F31A2100B54B005614E3 /* LazyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B54F3192100B54B005614E3 /* LazyImageView.swift */; };
 		5B6FA01520FE666F00737E8A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Utils.swift */; };
 		8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */; };
 /* End PBXBuildFile section */
@@ -36,10 +37,11 @@
 		5B46348020FDEE4200995DDF /* About Canada.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "About Canada.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B46348320FDEE4200995DDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B46348520FDEE4200995DDF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-        5B46348A20FDEE4300995DDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B46348A20FDEE4300995DDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B46348D20FDEE4300995DDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B46348F20FDEE4300995DDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B4634C720FE1CF400995DDF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5B54F3192100B54B005614E3 /* LazyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyImageView.swift; sourceTree = "<group>"; };
 		5B6FA01420FE666F00737E8A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.release.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +72,7 @@
 			children = (
 				5B2FA2A520FE445B00B5BED9 /* ArticleCell.swift */,
 				5B3591D120FF72150015AC5C /* ErrorCell.swift */,
+				5B54F3192100B54B005614E3 /* LazyImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,7 +138,7 @@
 		5B4634C620FE1B5300995DDF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-                5B46348A20FDEE4300995DDF /* Assets.xcassets */,
+				5B46348A20FDEE4300995DDF /* Assets.xcassets */,
 				5B4634C720FE1CF400995DDF /* Constants.swift */,
 				5B6FA01420FE666F00737E8A /* Utils.swift */,
 				5B46348F20FDEE4300995DDF /* Info.plist */,
@@ -214,7 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B46348E20FDEE4300995DDF /* LaunchScreen.storyboard in Resources */,
-                5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */,
+				5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B54F31A2100B54B005614E3 /* LazyImageView.swift in Sources */,
 				5B2FA2A620FE445B00B5BED9 /* ArticleCell.swift in Sources */,
 				5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */,
 				5B46348620FDEE4200995DDF /* ViewController.swift in Sources */,

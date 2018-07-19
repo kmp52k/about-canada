@@ -16,8 +16,10 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
     
     let articleCellIdentifier: String = Constants.articleCellIdentifier
     let errorCellIdentifier: String = Constants.errorCellIdentifier
+    var navigationTitle: UILabel?
     var aboutError: AboutError?
     var about: About?
+    var articleViewModels: [ArticleViewModel] = []
     
     override func viewDidLoad() {
         
@@ -40,11 +42,7 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         } else {
             let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: articleCellIdentifier, for: indexPath) as! ArticleCell
             articleCell.backgroundColor = UIColor.yellow
-            print(indexPath.row)
-            if let articleData = about?.rows![indexPath.row] {
-                let vm = ArticleViewModel(article: articleData)
-                articleCell.article = vm
-            }
+            articleCell.article = articleViewModels[indexPath.row]
             return articleCell
         }
     }
@@ -52,22 +50,36 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.aboutError != nil { return 1 }
         else {
-            guard let count = about?.rows?.count else { return 0 }
-            return count
+            return articleViewModels.count
+//            guard let count = about?.rows?.count else { return 0 }
+//            return count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let height = collectionView.frame.height + collectionView.contentOffset.y
         if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
-        else { return CGSize(width: collectionView.frame.width, height: Constants.articleHeight) }
+        else { return CGSize(width: collectionView.frame.width - 20, height: Constants.articleHeight) }
     }
+    
+    
     
     private func setupView() {
         self.collectionView?.backgroundColor = UIColor.white
         self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: articleCellIdentifier)
         self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: errorCellIdentifier)
         self.navigationItem.title = Constants.navBarTitle
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationTitle = {
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            label.text = Constants.navBarTitle
+            label.textColor = UIColor.white
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: 20)
+            return label
+        }()
+        self.navigationItem.titleView = self.navigationTitle
     }
     
     private func getAboutData() {
@@ -103,6 +115,13 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         do {
             self.about = try Utils.shared.parseData(data: data)
             self.navigationItem.title = self.about?.title
+            if !(self.about?.rows?.isEmpty)! {
+                for article in (self.about?.rows)! {
+                    guard let _ = article.title else { continue }
+                    let articleVM = ArticleViewModel(article: article)
+                    self.articleViewModels.append(articleVM)
+                }
+            }
             self.collectionView?.reloadData()
         } catch {
             print(Constants.invalidJSONError)

@@ -29,8 +29,8 @@ class ArticleCell: UICollectionViewCell {
         return label
     }()
     
-    let articleImage: CustomImageView = {
-        let view = CustomImageView(image: Constants.noImage)
+    let articleImage: LazyImageView = {
+        let view = LazyImageView(image: Constants.noImage)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = UIViewContentMode.scaleAspectFit
         return view
@@ -76,41 +76,5 @@ class ArticleCell: UICollectionViewCell {
 //            }
             articleImage.loadImageUsingURLString(urlString: article.imageURL)
         }
-    }
-}
-
-let imageCache = NSCache<AnyObject, AnyObject>()
-
-class CustomImageView: UIImageView {
-    
-    var imageURLString: String?
-    
-    func loadImageUsingURLString(urlString: String) {
-        self.imageURLString = urlString
-        
-        let url = URL(string: urlString)!
-        if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
-            print(imageFromCache)
-            self.image = imageFromCache
-            return
-        }
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            DispatchQueue.main.async {
-                self.image = nil
-                if error != nil {
-                    print(error.debugDescription)
-                    self.image = Constants.noImage
-                    return
-                }
-//            }
-//            DispatchQueue.main.async {
-                let imageToCache = UIImage(data: data!)
-                print(self.imageURLString == urlString)
-                if self.imageURLString == urlString {
-                    self.image = UIImage(data: data!)
-                    imageCache.setObject(imageToCache as AnyObject, forKey: self.imageURLString as AnyObject)
-                }
-            }
-        }).resume()
     }
 }
