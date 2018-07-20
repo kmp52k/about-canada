@@ -51,15 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         
-        let flowLayout = UICollectionViewFlowLayout()
-        print(flowLayout.minimumInteritemSpacing)
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        let aboutViewController = AboutViewController(collectionViewLayout: flowLayout)
-        self.window?.rootViewController = UINavigationController(rootViewController: aboutViewController)
         UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = UIColor(red: 194/255, green: 31/255, blue: 31/255, alpha: 1)
+        let aboutController = AboutViewController()
+        self.window?.rootViewController = UINavigationController(rootViewController: aboutController)
         self.window?.addSubview(statusBarView)
+        aboutController.navBarView = statusBarView
     }
 
 
