@@ -72,7 +72,7 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         let height = collectionView.frame.height + collectionView.contentOffset.y
         if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
         else {
-            return CGSize(width: collectionView.frame.width - 28, height: articleViewModels[indexPath.row].descriptionHeight)
+            return CGSize(width: (collectionView.frame.width / 2) - 21, height: articleViewModels[indexPath.row].descriptionHeight)
         }
     }
     
@@ -82,7 +82,7 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         self.collectionView?.addSubview(activity)
         self.activity.anchorCenterSuperview()
         self.activity.startAnimating()
-//        self.collectionView?.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        self.collectionView?.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         self.collectionView?.backgroundColor = UIColor.white
         
         self.navigationItem.title = Constants.navBarTitle
@@ -97,8 +97,8 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         }()
         self.navigationItem.titleView = self.navigationTitle
         
-        self.layout?.minimumInteritemSpacing = 14
-        self.layout?.minimumLineSpacing = 14
+        self.layout?.minimumInteritemSpacing = 0
+        self.layout?.minimumLineSpacing = 0
         self.layout?.sectionInset = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
         
         self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: articleCellIdentifier)

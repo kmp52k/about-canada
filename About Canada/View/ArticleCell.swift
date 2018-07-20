@@ -55,11 +55,11 @@ class ArticleCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.yellow
 //
-//        self.contentView.layer.borderWidth = 1.0
-//        self.contentView.layer.borderColor = UIColor.clear.cgColor
-//        
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderColor = UIColor.clear.cgColor
+//
 //        self.layer.shadowColor = UIColor.black.cgColor
 //        self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
 //        self.layer.shadowRadius = 4
@@ -86,7 +86,7 @@ class ArticleCell: UICollectionViewCell {
         
         self.descriptionText.anchor(self.articleName.bottomAnchor, left: self.articleName.leftAnchor, bottom: nil, right: self.articleName.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        self.dividerLineView.anchor(nil, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 1)
+        self.dividerLineView.anchor(nil, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 1, rightConstant: 0, widthConstant: 0, heightConstant: 1)
         
         if !article.imageURL.isEmpty {
             articleImage.loadImageUsingURLString(urlString: article.imageURL)

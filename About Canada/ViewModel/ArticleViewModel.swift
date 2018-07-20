@@ -35,7 +35,7 @@ struct ArticleViewModel {
     }
     
     func calculateDescriptionHeight() -> CGFloat {
-        let approxwidth = self.size.width - 28 - 100 - 30
+        let approxwidth = (self.size.width / 2) - 28 - 100 - 30
         let size = CGSize(width: approxwidth, height: 1000)
         let estimatedFrame = NSString(string: self.description).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 14)], context: nil)
         if estimatedFrame.height < (118 - 48) {
