@@ -12,7 +12,7 @@ import UIKit
 
 // MARK:- AboutViewController
 
-class AboutViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class AboutViewController: CollectionViewController {
     
     let articleCellIdentifier: String = Constants.articleCellIdentifier
     let errorCellIdentifier: String = Constants.errorCellIdentifier
@@ -21,16 +21,16 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
     var aboutError: AboutError?
     var about: About?
     var articleViewModels: [ArticleViewModel] = []
-    var layout: UICollectionViewFlowLayout? { get { return collectionViewLayout as? UICollectionViewFlowLayout } }
+//    var layout: UICollectionViewFlowLayout? { get { return collectionViewLayout as? UICollectionViewFlowLayout } }
     var navBarView: UIView?
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init() {
+//        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,12 +67,20 @@ class AboutViewController: UICollectionViewController, UICollectionViewDelegateF
         }
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+        let vc = ArticleViewController()
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let height = collectionView.frame.height + collectionView.contentOffset.y
         if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
         else {
-            return CGSize(width: (collectionView.frame.width / 2) - 21, height: articleViewModels[indexPath.row].descriptionHeight)
+            return CGSize(width: collectionView.frame.width - 28, height: articleViewModels[indexPath.row].descriptionHeight)
         }
     }
     

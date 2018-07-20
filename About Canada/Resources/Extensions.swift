@@ -13,6 +13,16 @@ import UIKit
 
 extension UIView {
     
+    public func fillSuperview() {
+        translatesAutoresizingMaskIntoConstraints = false
+        if let superview = superview {
+            leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
+            rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
+            topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+        }
+    }
+    
     public func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -70,5 +80,44 @@ extension UIView {
     public func anchorCenterSuperview() {
         anchorCenterXToSuperview()
         anchorCenterYToSuperview()
+    }
+    
+    fileprivate struct AssociatedObjectKeys {
+        static var tapGestureRecognizer = "MediaViewerAssociatedObjectKey_mediaViewer"
+    }
+    
+    fileprivate typealias Action = (() -> Void)?
+    
+    // Set our computed property type to a closure
+    fileprivate var tapGestureRecognizerAction: Action? {
+        set {
+            if let newValue = newValue {
+                // Computed properties get stored as associated objects
+                objc_setAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            }
+        }
+        get {
+            let tapGestureRecognizerActionInstance = objc_getAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer) as? Action
+            return tapGestureRecognizerActionInstance
+        }
+    }
+    
+    // This is the meat of the sauce, here we create the tap gesture recognizer and
+    // store the closure the user passed to us in the associated object we declared above
+    public func addTapGestureRecognizer(action: (() -> Void)?) {
+        self.isUserInteractionEnabled = true
+        self.tapGestureRecognizerAction = action
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    // Every time the user taps on the UIImageView, this function gets called,
+    // which triggers the closure we stored
+    @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
+        if let action = self.tapGestureRecognizerAction {
+            action?()
+        } else {
+            print("no action")
+        }
     }
 }
