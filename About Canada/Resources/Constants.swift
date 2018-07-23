@@ -22,12 +22,14 @@ struct Constants {
     static let pagingText = "Article: "
     
     static let articleCellIdentifier = "articleCell"
+    static let cardCellIdentifier = "cardCell"
     static let carousalCellIdentifier = "carousalCell"
     static let errorCellIdentifier = "errorCell"
     
     static let serviceURLString = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
     static let errorImage = UIImage(named: "error")
     static let noImage = UIImage(named: "no-image")
+    static let cardsImage = UIImage(named: "cards")
     static let errorImageHeight = CGFloat(120)
     static let errorMargin = CGFloat(20)
     static let articleHeight = CGFloat(118)

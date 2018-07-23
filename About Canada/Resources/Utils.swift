@@ -55,18 +55,21 @@ class Utils {
         }
     }
     
+    public func getColumnsForView() -> CGFloat {
+        if !self.iPadDevice && UIDevice.current.orientation.isPortrait {
+            return 1
+        } else if self.iPadDevice && UIDevice.current.orientation.isLandscape {
+            return 3
+        } else {
+            return 2
+        }
+    }
+    
     public func getArticleCellSize() -> CGSize {
         
-        var columns = 1
+        let columns = self.getColumnsForView()
         var size = CGSize()
-        if !self.iPadDevice && UIDevice.current.orientation.isPortrait {
-            columns = 1
-        } else if self.iPadDevice && UIDevice.current.orientation.isLandscape {
-            columns = 3
-        } else {
-            columns = 2
-        }
-        size.width = (UIScreen.main.bounds.size.width - (CGFloat(columns + 1) * Constants.articleInsets)) / CGFloat(columns)
+        size.width = (UIScreen.main.bounds.size.width - ((columns + 1) * Constants.articleInsets)) / columns
         size.height = Constants.articleHeight
         return size
     }

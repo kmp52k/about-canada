@@ -12,7 +12,7 @@ import Foundation
 
 // MARK:- Protocol: AboutServiceDeligate
 
-protocol AboutServiceDeligate {
+protocol AboutServiceDeligate: class {
     func handleAboutData(aboutResponse: About) -> Void
     func handleAboutError(aboutError: AboutError) -> Void
 }

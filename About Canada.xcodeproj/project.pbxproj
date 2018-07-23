@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B17C72121058A67009FF5B4 /* PintrestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B17C72021058A67009FF5B4 /* PintrestLayout.swift */; };
+		5B17C7232105A966009FF5B4 /* PintrestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B17C7222105A966009FF5B4 /* PintrestViewController.swift */; };
 		5B2FA2A620FE445B00B5BED9 /* ArticleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A520FE445B00B5BED9 /* ArticleCellView.swift */; };
 		5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A720FE447600B5BED9 /* ArticleModel.swift */; };
 		5B2FA2AA20FE44AC00B5BED9 /* ArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */; };
@@ -19,6 +21,7 @@
 		5B46348E20FDEE4300995DDF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B46348C20FDEE4300995DDF /* LaunchScreen.storyboard */; };
 		5B4634C820FE1CF400995DDF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4634C720FE1CF400995DDF /* Constants.swift */; };
 		5B54F31A2100B54B005614E3 /* LazyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B54F3192100B54B005614E3 /* LazyImageView.swift */; };
+		5B5FC1FF2105EEA400B86973 /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5FC1FE2105EEA400B86973 /* CardCellView.swift */; };
 		5B60F62521023D9F008B6755 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60F62421023D9F008B6755 /* ArticleViewController.swift */; };
 		5B60F62721024173008B6755 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60F62621024173008B6755 /* CollectionViewController.swift */; };
 		5B6617142103EF0D002F87AA /* AboutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6617132103EF0D002F87AA /* AboutError.swift */; };
@@ -32,6 +35,8 @@
 /* Begin PBXFileReference section */
 		5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_About_Canada.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		536C028658C19FF4699848E3 /* Pods-About Canada.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.debug.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.debug.xcconfig"; sourceTree = "<group>"; };
+		5B17C72021058A67009FF5B4 /* PintrestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintrestLayout.swift; sourceTree = "<group>"; };
+		5B17C7222105A966009FF5B4 /* PintrestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PintrestViewController.swift; sourceTree = "<group>"; };
 		5B2FA2A520FE445B00B5BED9 /* ArticleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCellView.swift; sourceTree = "<group>"; };
 		5B2FA2A720FE447600B5BED9 /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModel.swift; sourceTree = "<group>"; };
@@ -46,6 +51,7 @@
 		5B46348F20FDEE4300995DDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B4634C720FE1CF400995DDF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5B54F3192100B54B005614E3 /* LazyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyImageView.swift; sourceTree = "<group>"; };
+		5B5FC1FE2105EEA400B86973 /* CardCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellView.swift; sourceTree = "<group>"; };
 		5B60F62421023D9F008B6755 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5B60F62621024173008B6755 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		5B6617132103EF0D002F87AA /* AboutError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutError.swift; sourceTree = "<group>"; };
@@ -81,9 +87,11 @@
 			isa = PBXGroup;
 			children = (
 				5B2FA2A520FE445B00B5BED9 /* ArticleCellView.swift */,
+				5B5FC1FE2105EEA400B86973 /* CardCellView.swift */,
 				5B6D931B21037A9B000AB585 /* CarousalCellView.swift */,
 				5B3591D120FF72150015AC5C /* ErrorCellView.swift */,
 				5B54F3192100B54B005614E3 /* LazyImageView.swift */,
+				5B17C72021058A67009FF5B4 /* PintrestLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -143,6 +151,7 @@
 				5B2FA2AB20FE44CD00B5BED9 /* AboutViewController.swift */,
 				5B60F62421023D9F008B6755 /* ArticleViewController.swift */,
 				5B60F62621024173008B6755 /* CollectionViewController.swift */,
+				5B17C7222105A966009FF5B4 /* PintrestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -286,6 +295,7 @@
 			files = (
 				5B54F31A2100B54B005614E3 /* LazyImageView.swift in Sources */,
 				5B86E1092101192500DA5179 /* Service.swift in Sources */,
+				5B17C72121058A67009FF5B4 /* PintrestLayout.swift in Sources */,
 				5B2FA2A620FE445B00B5BED9 /* ArticleCellView.swift in Sources */,
 				5B6617142103EF0D002F87AA /* AboutError.swift in Sources */,
 				5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */,
@@ -301,6 +311,8 @@
 				5B4634C820FE1CF400995DDF /* Constants.swift in Sources */,
 				5B2FA2AE20FE5F4C00B5BED9 /* AboutModel.swift in Sources */,
 				5B3591CE20FF51E80015AC5C /* ErrorViewModel.swift in Sources */,
+				5B5FC1FF2105EEA400B86973 /* CardCellView.swift in Sources */,
+				5B17C7232105A966009FF5B4 /* PintrestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,8 +360,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8ZQ4W3G8X8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -405,8 +419,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8ZQ4W3G8X8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -430,6 +446,7 @@
 			baseConfigurationReference = 536C028658C19FF4699848E3 /* Pods-About Canada.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 299VAT3WU6;
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";
@@ -449,6 +466,7 @@
 			baseConfigurationReference = A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 299VAT3WU6;
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";

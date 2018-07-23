@@ -110,7 +110,8 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         
         self.clearData()
         self.about = aboutResponse
-        self.navigationItem.title = self.about?.title
+        self.navigationTitle?.text = self.about?.title
+        self.navigationItem.titleView = self.navigationTitle
         if !(self.about?.rows?.isEmpty)! {
             for article in (self.about?.rows)! {
                 guard let _ = article.title else { continue }
@@ -138,17 +139,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         self.activityIndicatorView.startAnimating()
         self.collectionView?.backgroundColor = Constants.articleBackgroundColor
         
-        self.navigationItem.title = Constants.navBarTitle
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationTitle = {
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-            label.text = Constants.navBarTitle
-            label.textColor = UIColor.white
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: Constants.navigationTitleFontSize)
-            return label
-        }()
-        self.navigationItem.titleView = self.navigationTitle
+        self.setupNavBar()
         
         self.layout?.minimumInteritemSpacing = Constants.articleInsets
         self.layout?.minimumLineSpacing = 0
@@ -166,11 +157,41 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         }
     }
     
+    private func setupNavBar() {
+        
+        navigationController?.navigationBar.tintColor = .white
+        self.navBarView?.isHidden = Utils.shared.getNavBarHidden()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationTitle = {
+            let label = UILabel()
+            label.text = Constants.navBarTitle
+            label.textColor = UIColor.white
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: Constants.navigationTitleFontSize)
+            return label
+        }()
+        let cardsButton = UIButton(type: .system)
+        cardsButton.contentMode = .scaleAspectFill
+        cardsButton.addTarget(self, action: #selector(handleCardsButton), for: .touchUpInside)
+        cardsButton.setImage(Constants.cardsImage, for: .normal)
+        self.navigationItem.titleView = self.navigationTitle
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cardsButton)
+    }
+    
     private func clearData() {
         
         if self.activityIndicatorView.isAnimating { self.activityIndicatorView.stopAnimating() }
         if self.refresher.isRefreshing { self.refresher.endRefreshing() }
         self.articleViewModels.removeAll()
+    }
+    
+    @objc private func handleCardsButton() {
+        
+        let layout = PintrestLayout()
+        let cardsVC = PintrestViewController(collectionViewLayout: layout)
+        cardsVC.articleViewModels = self.articleViewModels
+        self.navigationController?.pushViewController(cardsVC, animated: true)
+
     }
     
 }
