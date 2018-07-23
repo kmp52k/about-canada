@@ -8,54 +8,106 @@
 
 import UIKit
 
+
+// MARK:- ArticleViewController
+
 class ArticleViewController: CollectionViewController {
     
-    let backdrop: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        return view
-    }()
     
-    var articles: [ArticleViewModel]? {
-        didSet {
-            self.setupView()
-        }
-    }
+    // MARK:- Public
+    
+    var articleViewModels: [ArticleViewModel] = []
+    var currentPage = 0
+    let pagingLabel = Constants.pagingLabel
+    let backButton = Constants.backButton
+    
+    
+    // MARK:- Internal: Inheritance CollectionViewController
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.setupView()
     }
     
-    private func setupView() {
-        self.collectionView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        self.collectionView?.backgroundView = self.backdrop
-        self.backdrop.addTapGestureRecognizer {
-            self.dismiss(animated: true, completion: nil)
-        }
-        self.collectionView?.addSubview(backdrop)
-        self.collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        self.collectionView?.isPagingEnabled = true
+    
+    // MARK:- Internal: Inheritance UIView
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
-        self.layout?.scrollDirection = .horizontal
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (_) in
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+            self.navigateSlide()
+        }) { (_) in }
     }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
+    
+    
+    // MARK:- Internal: Inheritance UICollectionView
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor.red
-        return cell
+        
+        let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.carousalCellIdentifier, for: indexPath) as! CarousalCell
+        articleCell.article = articleViewModels[indexPath.row]
+        return articleCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return articleViewModels.count
     }
+    
+    
+    // MARK:- Internal: Inheritance UIScrollView
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        self.currentPage = Int(targetContentOffset.pointee.x / self.view.frame.width)
+        self.pagingLabel.text = "\(Constants.pagingText)\(self.currentPage + 1) / \(self.articleViewModels.count)"
+    }
+    
+    
+    // MARK:- Internal: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width, height: self.view.frame.height-200)
+        
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-
+    
+    
+    // MARK:- Private
+    
+    private func setupView() {
+        
+        self.collectionView?.backgroundColor = UIColor.black
+        self.collectionView?.isPagingEnabled = true
+        
+        self.layout?.minimumInteritemSpacing = 0
+        self.layout?.minimumLineSpacing = 0
+        self.layout?.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.layout?.scrollDirection = .horizontal
+        
+        self.collectionView?.register(CarousalCell.self, forCellWithReuseIdentifier: Constants.carousalCellIdentifier)
+        
+        self.collectionView?.addSubview(backButton)
+        self.backButton.anchor(self.collectionView?.superview?.topAnchor, left: self.collectionView?.superview?.leftAnchor, bottom: nil, right: nil, topConstant: 28, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
+        self.backButton.addTapGestureRecognizer {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        self.collectionView?.superview?.addSubview(self.pagingLabel)
+        self.pagingLabel.anchor(self.backButton.bottomAnchor, left: self.backButton.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 14)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.navigateSlide()
+        }
+    }
+    
+    private func navigateSlide() {
+        
+        if self.currentPage > 0 {
+            let indexPath = IndexPath(item: self.currentPage, section: 0)
+            self.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
+        self.pagingLabel.text = "\(Constants.pagingText)\(self.currentPage + 1) / \(self.articleViewModels.count)"
+    }
+        
 }

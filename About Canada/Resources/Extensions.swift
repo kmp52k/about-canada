@@ -13,7 +13,11 @@ import UIKit
 
 extension UIView {
     
+    
+    // MARK:- Public
+    
     public func fillSuperview() {
+        
         translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {
             leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
@@ -24,12 +28,14 @@ extension UIView {
     }
     
     public func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         
         _ = anchorWithReturnAnchors(top, left: left, bottom: bottom, right: right, topConstant: topConstant, leftConstant: leftConstant, bottomConstant: bottomConstant, rightConstant: rightConstant, widthConstant: widthConstant, heightConstant: heightConstant)
     }
     
     public func anchorWithReturnAnchors(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
+        
         translatesAutoresizingMaskIntoConstraints = false
         
         var anchors = [NSLayoutConstraint]()
@@ -64,6 +70,7 @@ extension UIView {
     }
     
     public func anchorCenterXToSuperview(constant: CGFloat = 0) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         if let anchor = superview?.centerXAnchor {
             centerXAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
@@ -71,6 +78,7 @@ extension UIView {
     }
     
     public func anchorCenterYToSuperview(constant: CGFloat = 0) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         if let anchor = superview?.centerYAnchor {
             centerYAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
@@ -78,21 +86,33 @@ extension UIView {
     }
     
     public func anchorCenterSuperview() {
+        
         anchorCenterXToSuperview()
         anchorCenterYToSuperview()
     }
     
-    fileprivate struct AssociatedObjectKeys {
+    public func addTapGestureRecognizer(action: (() -> Void)?) {
+        
+        self.isUserInteractionEnabled = true
+        self.tapGestureRecognizerAction = action
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    
+    // MARK:- Private
+    
+    private struct AssociatedObjectKeys {
+        
         static var tapGestureRecognizer = "MediaViewerAssociatedObjectKey_mediaViewer"
     }
     
-    fileprivate typealias Action = (() -> Void)?
+    private typealias Action = (() -> Void)?
     
-    // Set our computed property type to a closure
-    fileprivate var tapGestureRecognizerAction: Action? {
+    private var tapGestureRecognizerAction: Action? {
+        
         set {
             if let newValue = newValue {
-                // Computed properties get stored as associated objects
                 objc_setAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
             }
         }
@@ -102,18 +122,8 @@ extension UIView {
         }
     }
     
-    // This is the meat of the sauce, here we create the tap gesture recognizer and
-    // store the closure the user passed to us in the associated object we declared above
-    public func addTapGestureRecognizer(action: (() -> Void)?) {
-        self.isUserInteractionEnabled = true
-        self.tapGestureRecognizerAction = action
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        self.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    // Every time the user taps on the UIImageView, this function gets called,
-    // which triggers the closure we stored
-    @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
+    @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
+        
         if let action = self.tapGestureRecognizerAction {
             action?()
         } else {

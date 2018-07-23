@@ -12,6 +12,7 @@ import Foundation
 // MARK:- About
 
 struct About: Decodable {
+    
     let title: String?
     let rows: [Article]?
 }

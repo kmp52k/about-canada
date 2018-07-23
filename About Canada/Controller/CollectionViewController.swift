@@ -8,7 +8,13 @@
 
 import UIKit
 
+
+// MARK:- CollectionViewController
+
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    
+    // MARK:- Public
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -18,26 +24,26 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }()
     
     public init() {
+        
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
     required public init?(coder aDecoder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
     open func getRefreshControl() -> UIRefreshControl {
+        
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return rc
     }
     
-    @objc open func handleRefresh() {
-        
-    }
+    @objc open func handleRefresh() { }
     
     open var layout: UICollectionViewFlowLayout? {
-        get {
-            return collectionViewLayout as? UICollectionViewFlowLayout
-        }
+        
+        get { return collectionViewLayout as? UICollectionViewFlowLayout }
     }
 }

@@ -51,12 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         
-        UINavigationBar.appearance().barTintColor = UIColor(red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
-        let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
-        statusBarView.backgroundColor = UIColor(red: 194/255, green: 31/255, blue: 31/255, alpha: 1)
+        UINavigationBar.appearance().barTintColor = Constants.navigationBarColor
+        let statusBarView = UIView()
+        statusBarView.backgroundColor = Constants.statusBarColor
         let aboutController = AboutViewController()
         self.window?.rootViewController = UINavigationController(rootViewController: aboutController)
         self.window?.addSubview(statusBarView)
+        statusBarView.anchor(self.window?.topAnchor, left: self.window?.leftAnchor, bottom: nil, right: self.window?.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
         aboutController.navBarView = statusBarView
     }
 

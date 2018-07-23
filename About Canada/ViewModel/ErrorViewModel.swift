@@ -13,6 +13,9 @@ import UIKit
 
 struct ErrorViewModel {
     
+    
+    // MARK:- Public
+    
     let errorImage: UIImageView = {
         let imageView = UIImageView(image: Constants.errorImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +34,7 @@ struct ErrorViewModel {
     
     // Dependancy Injection (DI)
     init(error: AboutError) {
+        
         switch error {
         case AboutError.noNetwork:
             self.errorMessage.text = Constants.noConnectivityMessage

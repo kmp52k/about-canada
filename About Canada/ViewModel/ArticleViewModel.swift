@@ -6,10 +6,15 @@
 //  Copyright © 2018 PwC. All rights reserved.
 //
 
-import Alamofire
 import UIKit
 
+
+// MARK:- ArticleViewModel
+
 struct ArticleViewModel {
+    
+    
+    // MARK:- Public
     
     var title: String
     var imageURL: String
@@ -19,6 +24,7 @@ struct ArticleViewModel {
     
     // Dependancy Injection (DI)
     init(article: Article, size: CGSize) {
+        
         self.title = article.title!
         self.size = size
         if let dscr = article.description {
@@ -35,6 +41,7 @@ struct ArticleViewModel {
     }
     
     func calculateDescriptionHeight() -> CGFloat {
+        
         let approxwidth = self.size.width - 28 - 100 - 30
         let size = CGSize(width: approxwidth, height: 1000)
         let estimatedFrame = NSString(string: self.description).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 14)], context: nil)
@@ -43,5 +50,4 @@ struct ArticleViewModel {
         }
         return estimatedFrame.height + 48
     }
-
 }

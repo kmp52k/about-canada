@@ -15,12 +15,16 @@ import UIKit
 class Utils {
     
     public static let shared = Utils()
-    public let activityIndicatorView: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        aiv.hidesWhenStopped = true
-        aiv.color = .black
-        return aiv
-    }()
+    
+    
+    //MARK:- Private
+    
+    private var iPadDevice: Bool = UIDevice.current.userInterfaceIdiom == .pad
+    
+    private init() { }
+    
+    
+    // MARK:- Public
     
     public func isNetworkAvailable() throws -> Bool {
         let reachability = NetworkReachabilityManager()
@@ -51,5 +55,26 @@ class Utils {
         }
     }
     
-    private init() { }
+    public func getArticleCellSize() -> CGSize {
+        
+        var columns = 1
+        var size = CGSize()
+        if !self.iPadDevice && UIDevice.current.orientation.isPortrait {
+            columns = 1
+        } else if self.iPadDevice && UIDevice.current.orientation.isLandscape {
+            columns = 3
+        } else {
+            columns = 2
+        }
+        size.width = (UIScreen.main.bounds.size.width - (CGFloat(columns + 1) * Constants.articleInsets)) / CGFloat(columns)
+        size.height = Constants.articleHeight
+        return size
+    }
+    
+    public func getNavBarHidden() -> Bool {
+        
+        if self.iPadDevice { return false }
+        else if UIDevice.current.orientation.isPortrait { return false }
+        else { return true }
+    }
 }

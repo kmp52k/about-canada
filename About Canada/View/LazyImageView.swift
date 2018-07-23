@@ -15,9 +15,18 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 class LazyImageView: UIImageView {
     
+    
+    // MARK: Public
+    
     var imageURLString: String?
     
+    static func clearImageCache() {
+        
+        imageCache.removeAllObjects()
+    }
+    
     func loadImageUsingURLString(urlString: String) {
+        
         self.imageURLString = urlString
         self.image = Constants.noImage
         let url = URL(string: urlString)!
@@ -25,6 +34,7 @@ class LazyImageView: UIImageView {
             self.image = imageFromCache
             return
         }
+        
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 if error != nil {
