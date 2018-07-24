@@ -11,6 +11,8 @@ import UIKit
 
 // MARK:- ArticleViewController
 
+// Carousal View Controller for Articles
+
 class ArticleViewController: CollectionViewController {
     
     
@@ -22,7 +24,7 @@ class ArticleViewController: CollectionViewController {
     let backButton = Constants.backButton
     
     
-    // MARK:- Internal: Inheritance CollectionViewController
+    // MARK:- Internal: Inheritance UIView
     
     override func viewDidLoad() {
         
@@ -30,6 +32,11 @@ class ArticleViewController: CollectionViewController {
         self.setupView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        self.navigateSlide()
+    }
     
     // MARK:- Internal: Inheritance UIView
     
@@ -37,7 +44,9 @@ class ArticleViewController: CollectionViewController {
         
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (_) in
+            // Invalidating active layout to properly set articles accordong to updated orientation
             self.collectionView?.collectionViewLayout.invalidateLayout()
+            // Readjusting current slide to be centered in view
             self.navigateSlide()
         }) { (_) in }
     }
@@ -78,7 +87,7 @@ class ArticleViewController: CollectionViewController {
     
     private func setupView() {
         
-        self.collectionView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        self.collectionView?.backgroundColor = Constants.carousalBackgroudColor
         self.collectionView?.isPagingEnabled = true
         
         self.layout?.minimumInteritemSpacing = 0
@@ -90,15 +99,12 @@ class ArticleViewController: CollectionViewController {
         
         self.collectionView?.addSubview(backButton)
         self.backButton.anchor(self.collectionView?.superview?.topAnchor, left: self.collectionView?.superview?.leftAnchor, bottom: nil, right: nil, topConstant: 28, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
-        self.backButton.addTapGestureRecognizer {
+        self.backButton.addTapGestureRecognizer { // Handling Tap event on Back button
             self.dismiss(animated: true, completion: nil)
         }
         
         self.collectionView?.superview?.addSubview(self.pagingLabel)
         self.pagingLabel.anchor(self.backButton.bottomAnchor, left: self.backButton.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 14)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigateSlide()
-        }
     }
     
     private func navigateSlide() {
@@ -107,6 +113,7 @@ class ArticleViewController: CollectionViewController {
             let indexPath = IndexPath(item: self.currentPage, section: 0)
             self.collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
+        // As currentPage is startin from 0 adding 1 for display
         self.pagingLabel.text = "\(Constants.pagingText)\(self.currentPage + 1) / \(self.articleViewModels.count)"
     }
         

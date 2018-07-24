@@ -13,7 +13,8 @@ import UIKit
 
 struct Constants {
     
-    private init() {}
+    
+    // MARK:- Public: Static
     
     static let navBarTitle = "About Canada"
     static let noConnectivityMessage = "No Internet. Check your data/wifi settings and try again."
@@ -49,6 +50,7 @@ struct Constants {
     static let carousalNameFont = UIFont.italicSystemFont(ofSize: 18)
     static let carousalNameColor = UIColor.white
     static let carousalDescriptionColor = UIColor.white
+    static let carousalBackgroudColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
     
     static let pagingLabel: UILabel = {
         let label = UILabel()
@@ -64,4 +66,8 @@ struct Constants {
         return button
     }()
     
+    
+    // MARK:- Private
+    
+    private init() {}
 }

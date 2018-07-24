@@ -102,6 +102,8 @@ extension UIView {
     
     // MARK:- Private
     
+    // Making tapGestureRecognizerAction as function closure
+    
     private struct AssociatedObjectKeys {
         
         static var tapGestureRecognizer = "MediaViewerAssociatedObjectKey_mediaViewer"

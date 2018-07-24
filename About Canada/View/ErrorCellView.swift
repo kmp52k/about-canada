@@ -40,12 +40,13 @@ class ErrorCell: UICollectionViewCell {
         let errorLabel: UILabel = (aboutError?.errorMessage)!
         self.addSubview(imageView)
         self.addSubview(errorLabel)
-        self.backgroundColor = UIColor.yellow
+        
         errorLabel.snp.makeConstraints { (make) in
             make.center.equalTo(self)
             make.left.equalTo(self).offset(Constants.errorMargin)
             make.right.equalTo(self).offset(-Constants.errorMargin)
         }
+        
         imageView.snp.makeConstraints { (make) in
             make.height.lessThanOrEqualTo(Constants.errorImageHeight)
             make.centerX.equalTo(self)

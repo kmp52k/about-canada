@@ -8,7 +8,13 @@
 
 import UIKit
 
+
+// MARK:- CardCell
+
 class CardCell: ArticleCell {
+    
+    
+    // MARK:- Internal: Inheritance ArticleCell
     
     override func setupCellView() {
         
@@ -30,13 +36,8 @@ class CardCell: ArticleCell {
         self.articleName.anchor(self.topAnchor, left: self.leftAnchor, bottom: self.articleImage.topAnchor, right: self.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 20)
         self.articleImage.anchor(nil, left: self.leftAnchor, bottom: nil, right: self.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         self.descriptionText.anchor(self.articleImage.bottomAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 0)
-//        DispatchQueue.main.async {
-//            if self.article.getDescriptionHeight(withWidth: self.frame.width - 18) > 20 {
-//                print("c", self.article.getDescriptionHeight(withWidth: self.frame.width - 18))
-//                self.descriptionText.anchor(self.articleImage.bottomAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: self.article.getDescriptionHeight(withWidth: self.frame.width - 18))
-//            }
-//        }
         
+        // Try fetching Image if Article has URL
         if !self.article.imageURL.isEmpty {
             self.articleImage.loadImageUsingURLString(urlString: self.article.imageURL)
         }

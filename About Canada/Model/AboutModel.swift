@@ -11,6 +11,8 @@ import Foundation
 
 // MARK:- About
 
+// Making About Model Decodable so that JSON decoder can directly map service response accordingly.
+
 struct About: Decodable {
     
     let title: String?

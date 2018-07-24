@@ -11,6 +11,8 @@ import Foundation
 
 // MARK:- Article
 
+// Making Article Model Decodable so that JSON decoder can directly map service response accordingly.
+
 struct Article: Decodable {
     
     let title: String?

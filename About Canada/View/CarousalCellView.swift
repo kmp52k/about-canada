@@ -38,6 +38,7 @@ class CarousalCell: ArticleCell {
         articleImage.anchorCenterSuperview()
         descriptionText.anchor(nil, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 8, bottomConstant: 16, rightConstant: 8, widthConstant: 0, heightConstant: 0)
         
+        // Try fetching Image if Article has URL
         if !self.article.imageURL.isEmpty {
             self.articleImage.loadImageUsingURLString(urlString: self.article.imageURL)
         }

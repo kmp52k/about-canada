@@ -11,6 +11,8 @@ import UIKit
 
 // MARK:- CollectionViewController
 
+// Parent Controller for About and Article Carousal Views
+
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     

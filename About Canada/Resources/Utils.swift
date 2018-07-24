@@ -27,38 +27,43 @@ class Utils {
     // MARK:- Public
     
     public func isNetworkAvailable() throws -> Bool {
+        
         let reachability = NetworkReachabilityManager()
         if (reachability?.isReachable)! {
             return true
         } else {
-            throw AboutError.noNetwork
+            throw AboutError.NoNetwork
         }
     }
     
     public func parseData(data: String) throws -> About {
+        
+        // Since incoming data is not proper JSON need to remove \n & \t from the response
         var dataString = data.replacingOccurrences(of: "\n", with: "")
         dataString = data.replacingOccurrences(of: "\t", with: "")
         let data = dataString.data(using: String.Encoding.utf8)
         do {
             let aboutData: About = try JSONDecoder().decode(About.self, from: data!)
-            print("Title: \(String(describing: aboutData.title))")
-            for article in aboutData.rows! {
-                print(article.title ?? "")
-                print(article.description ?? "")
-                print(article.imageHref ?? "")
-                print("------------------------------------------------------------------")
-            }
             return aboutData
         } catch {
             print(error)
-            throw AboutError.invalidJSON
+            throw AboutError.InvalidJSON
         }
     }
     
+    public func isPortrait() -> Bool { // Checking manually since UIDevice.current.orientation.isPortrait don't work properly on device launch
+        
+        if UIScreen.main.bounds.size.height > UIScreen.main.bounds.size.width {
+            return true
+        }
+        return false
+    }
+    
     public func getColumnsForView() -> CGFloat {
-        if !self.iPadDevice && UIDevice.current.orientation.isPortrait {
+        
+        if !self.iPadDevice && self.isPortrait() {
             return 1
-        } else if self.iPadDevice && UIDevice.current.orientation.isLandscape {
+        } else if self.iPadDevice && !self.isPortrait() {
             return 3
         } else {
             return 2
@@ -77,7 +82,7 @@ class Utils {
     public func getNavBarHidden() -> Bool {
         
         if self.iPadDevice { return false }
-        else if UIDevice.current.orientation.isPortrait { return false }
+        else if self.isPortrait() { return false }
         else { return true }
     }
 }

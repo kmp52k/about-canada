@@ -13,7 +13,7 @@ import Foundation
 
 enum AboutError: Error {
     
-    case noNetwork
-    case invalidJSON
-    case serverCallFailure
+    case NoNetwork
+    case InvalidJSON
+    case ServerCallFailure
 }

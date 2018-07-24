@@ -36,7 +36,7 @@ struct ErrorViewModel {
     init(error: AboutError) {
         
         switch error {
-        case AboutError.noNetwork:
+        case AboutError.NoNetwork:
             self.errorMessage.text = Constants.noConnectivityMessage
         default:
             self.errorMessage.text = Constants.errorMessage

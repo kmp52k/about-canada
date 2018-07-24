@@ -27,8 +27,6 @@ class Service {
     
     var deligate: AboutServiceDeligate?
     
-    private init() {}
-    
     
     // MARK:- Public: getAboutData
     
@@ -40,32 +38,32 @@ class Service {
                     if let dataString = response.value {
                         self.parseJSONString(data: dataString)
                     } else {
-                        print(response.error?.localizedDescription ?? AboutError.serverCallFailure)
-                        self.deligate?.handleAboutError(aboutError: AboutError.serverCallFailure)
+                        print(response.error?.localizedDescription ?? AboutError.ServerCallFailure)
+                        self.deligate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
                     }
                 })
             }
-        } catch AboutError.noNetwork {
-            self.deligate?.handleAboutError(aboutError: AboutError.noNetwork)
-        } catch AboutError.invalidJSON {
-            print(Constants.invalidJSONError)
-            self.deligate?.handleAboutError(aboutError: AboutError.invalidJSON)
+        } catch AboutError.NoNetwork {
+            self.deligate?.handleAboutError(aboutError: AboutError.NoNetwork)
+        } catch AboutError.InvalidJSON {
+            self.deligate?.handleAboutError(aboutError: AboutError.InvalidJSON)
         } catch {
             print(#imageLiteral(resourceName: "error").description)
-            self.deligate?.handleAboutError(aboutError: AboutError.serverCallFailure)
+            self.deligate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
         }
     }
     
     
-    // MARK:- Private: parseJSONString
+    // MARK:- Private:
+    
+    private init() {}
     
     private func parseJSONString(data: String) {
         do {
             let aboutData = try Utils.shared.parseData(data: data)
             self.deligate?.handleAboutData(aboutResponse: aboutData)
         } catch {
-            print(Constants.invalidJSONError)
-            self.deligate?.handleAboutError(aboutError: AboutError.invalidJSON)
+            self.deligate?.handleAboutError(aboutError: AboutError.InvalidJSON)
         }
     }
 }

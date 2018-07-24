@@ -21,6 +21,7 @@ struct ArticleViewModel {
     var description: String
     
     // Dependancy Injection (DI)
+    
     init(article: Article) {
         
         self.title = article.title!
@@ -35,6 +36,8 @@ struct ArticleViewModel {
             self.imageURL = "http://"
         }
     }
+    
+    // Calculating Probable Height for Description text for given Card width
     
     func getDescriptionHeight(withWidth: CGFloat) -> CGFloat {
         

@@ -12,10 +12,18 @@ import UIKit
 
 // MARK:- PintrestViewController
 
+// Pintrest Cards View controller
+
 class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate {
+    
+    
+    // MARK:- Public
     
     var articleViewModels: [ArticleViewModel] = []
     var layout: PintrestLayout?
+    
+    
+    // MARK:- Internal: Inheritance UIView
     
     override func viewDidLoad() {
         
@@ -24,28 +32,52 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
         self.setupView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        // Reloading data to rerender images which were loaded incorrecly during with initial dimensions
+        self.collectionView?.reloadData()
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransition(to: size, with: coordinator)
         self.collectionView?.reloadData()
         coordinator.animate(alongsideTransition: { (_) in
+            
+            // Clearing custom layout cache to rearrange cards according to updated device orientation
             self.layout?.attributesCache.removeAll()
+            // Invalidating active layout to properly set articles accordong to updated orientation
             self.collectionView?.collectionViewLayout.invalidateLayout()
-            self.collectionView?.reloadData()
+            // Giving minimum 20 milli sec to complete recreation of custom layout according to updated cards' dimensions
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+                self.collectionView?.reloadData()
+            }
         }) { (_) in }
+        
     }
     
+    
+    // MARK:- Internal: Inheritance UICollectionView
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return articleViewModels.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cardCellIdentifier, for: indexPath) as! CardCell
         cell.article = articleViewModels[indexPath.row]
         return cell
     }
     
+    
+    // MARK:- Internal: PintrestLayoutDeligate
+    
     func collectionView(collectionView: UICollectionView, heightForImageAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
+        
+        // Calculating probable Height of Image for given card width to keep aspect ratio of Image intact
         let call = CardCell()
         call.article = self.articleViewModels[indexPath.row]
         let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
@@ -54,14 +86,20 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
     }
     
     func collectionView(collectionView: UICollectionView, heightForDescriptionAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
-        let titleTextHeight: CGFloat = 36
+        
+        // Calculating probable Height taken by Article Title & Description in card for given card width
+        let titleTextHeight: CGFloat = 8 + 20 + 8 // 20 as title Height and 8 Padding at Top & Bottom
         let article = self.articleViewModels[indexPath.row]
-        let descriptionHeight = article.getDescriptionHeight(withWidth: width - 18)
+        let descriptionHeight = article.getDescriptionHeight(withWidth: width - 18) // 8 Padding on Left & Right + 2 to be safe
         print(descriptionHeight)
-        return titleTextHeight + 8 + descriptionHeight + 8
+        return titleTextHeight + 8 + descriptionHeight + 8 // 8 as Top & Bottom Margin
     }
     
+    
+    // MARK:- Private
+    
     private func setupView() {
+        
         self.layout?.delegate = self
         self.collectionView?.contentInset = UIEdgeInsets(top: Constants.articleInsets / 2, left: Constants.articleInsets / 2, bottom: Constants.articleInsets / 2, right: Constants.articleInsets / 2)
         self.collectionView?.register(CardCell.self, forCellWithReuseIdentifier: Constants.cardCellIdentifier)

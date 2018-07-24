@@ -12,6 +12,8 @@ import Alamofire
 
 // MARK:- AboutViewController
 
+// Root View Controller for Application Landing Screen
+
 class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     
@@ -39,7 +41,9 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (_) in
+            // Invalidating active layout to properly set articles accordong to updated orientation
             self.collectionView?.collectionViewLayout.invalidateLayout()
+            // Hiding navigation bar in case of iPhone device is in Lanscape mode
             self.navBarView?.isHidden = Utils.shared.getNavBarHidden()
         }) { (_) in }
     }
@@ -74,12 +78,14 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let vc = ArticleViewController()
-        vc.articleViewModels = articleViewModels
-        vc.currentPage = indexPath.row
-        vc.modalTransitionStyle = .crossDissolve
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true, completion: nil)
+        if self.aboutError == nil {
+            let carousalController = ArticleViewController()
+            carousalController.articleViewModels = articleViewModels
+            carousalController.currentPage = indexPath.row
+            carousalController.modalTransitionStyle = .crossDissolve
+            carousalController.modalPresentationStyle = .overCurrentContext
+            self.present(carousalController, animated: true, completion: nil)
+        }
     }
     
     
@@ -96,8 +102,11 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = collectionView.frame.height + collectionView.contentOffset.y
-        if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
+        if self.aboutError != nil {
+            // Making Error cell full screen size.
+            let height = self.collectionView!.frame.height + collectionView.contentOffset.y - (2 * Constants.articleInsets)
+            return CGSize(width: self.collectionView!.frame.width, height: height)
+        }
         else {
             return CGSize(width: Utils.shared.getArticleCellSize().width, height: Utils.shared.getArticleCellSize().height)
         }
@@ -108,17 +117,19 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     func handleAboutData(aboutResponse: About) {
         
-        self.clearData()
+        self.clearData() // To handle fresh data from Pull to Refresh
         self.about = aboutResponse
         self.navigationTitle?.text = self.about?.title
         self.navigationItem.titleView = self.navigationTitle
         if !(self.about?.rows?.isEmpty)! {
             for article in (self.about?.rows)! {
-                guard let _ = article.title else { continue }
-                let articleVM = ArticleViewModel(article: article)
-                self.articleViewModels.append(articleVM)
+                guard let _ = article.title else { continue } // Ignoring articles without Title
+                let articleViewModel = ArticleViewModel(article: article)
+                self.articleViewModels.append(articleViewModel)
             }
         }
+        self.navigationItem.rightBarButtonItem?.isEnabled = true // Since data is available enabling navigation to CardsView
+        self.aboutError = nil
         self.collectionView?.reloadData()
     }
     
@@ -126,6 +137,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         
         self.clearData()
         self.aboutError = aboutError
+        self.navigationItem.rightBarButtonItem?.isEnabled = false // Since data is not available disabling navigation to CardsView
         self.collectionView?.reloadData()
     }
     
@@ -176,6 +188,9 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         cardsButton.setImage(Constants.cardsImage, for: .normal)
         self.navigationItem.titleView = self.navigationTitle
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cardsButton)
+        
+        // Disabling Navigation to CardsView untill the data is available
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     private func clearData() {
@@ -187,11 +202,10 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     @objc private func handleCardsButton() {
         
-        let layout = PintrestLayout()
-        let cardsVC = PintrestViewController(collectionViewLayout: layout)
-        cardsVC.articleViewModels = self.articleViewModels
-        self.navigationController?.pushViewController(cardsVC, animated: true)
-
+        let layout = PintrestLayout() // Custom layout for CardsView
+        let cardsController = PintrestViewController(collectionViewLayout: layout)
+        cardsController.articleViewModels = self.articleViewModels
+        self.navigationController?.pushViewController(cardsController, animated: true)
     }
     
 }

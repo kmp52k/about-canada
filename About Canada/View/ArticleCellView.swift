@@ -41,7 +41,7 @@ class ArticleCell: UICollectionViewCell {
     }()
     
     let articleImage: LazyImageView = {
-        let view = LazyImageView(image: Constants.noImage)
+        let view = LazyImageView(image: Constants.noImage) // Placeholder Image till Image gets loaded successfully
         view.contentMode = UIViewContentMode.scaleAspectFill
         view.layer.cornerRadius = 5
         view.clipsToBounds = true
@@ -83,6 +83,7 @@ class ArticleCell: UICollectionViewCell {
         
         self.dividerLineView.anchor(nil, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 1, rightConstant: 0, widthConstant: 0, heightConstant: 1)
         
+        // Try fetching Image if Article has URL
         if !self.article.imageURL.isEmpty {
             self.articleImage.loadImageUsingURLString(urlString: self.article.imageURL)
         }
