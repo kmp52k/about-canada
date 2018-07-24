@@ -19,14 +19,11 @@ struct ArticleViewModel {
     var title: String
     var imageURL: String
     var description: String
-    var descriptionHeight: CGFloat = 0
-    var size: CGSize
     
     // Dependancy Injection (DI)
-    init(article: Article, size: CGSize) {
+    init(article: Article) {
         
         self.title = article.title!
-        self.size = size
         if let dscr = article.description {
             self.description = dscr
         } else {
@@ -37,17 +34,13 @@ struct ArticleViewModel {
         } else {
             self.imageURL = "http://"
         }
-        self.descriptionHeight = calculateDescriptionHeight()
     }
     
-    func calculateDescriptionHeight() -> CGFloat {
+    func getDescriptionHeight(withWidth: CGFloat) -> CGFloat {
         
-        let approxwidth = self.size.width - 28 - 100 - 30
+        let approxwidth = withWidth
         let size = CGSize(width: approxwidth, height: 1000)
-        let estimatedFrame = NSString(string: self.description).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: 14)], context: nil)
-        if estimatedFrame.height < (118 - 48) {
-            return 118
-        }
-        return estimatedFrame.height + 48
+        let estimatedFrame = NSString(string: self.description).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: Constants.articleDescriptionFont], context: nil)
+        return estimatedFrame.height
     }
 }

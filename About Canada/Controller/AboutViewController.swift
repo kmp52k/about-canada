@@ -115,7 +115,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         if !(self.about?.rows?.isEmpty)! {
             for article in (self.about?.rows)! {
                 guard let _ = article.title else { continue }
-                let articleVM = ArticleViewModel(article: article, size: (self.collectionView?.frame.size)!)
+                let articleVM = ArticleViewModel(article: article)
                 self.articleViewModels.append(articleVM)
             }
         }

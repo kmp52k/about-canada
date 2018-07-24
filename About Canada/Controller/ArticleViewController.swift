@@ -78,7 +78,7 @@ class ArticleViewController: CollectionViewController {
     
     private func setupView() {
         
-        self.collectionView?.backgroundColor = UIColor.black
+        self.collectionView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         self.collectionView?.isPagingEnabled = true
         
         self.layout?.minimumInteritemSpacing = 0
