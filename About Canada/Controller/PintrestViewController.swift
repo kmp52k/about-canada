@@ -91,7 +91,6 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
         let titleTextHeight: CGFloat = 8 + 20 + 8 // 20 as title Height and 8 Padding at Top & Bottom
         let article = self.articleViewModels[indexPath.row]
         let descriptionHeight = article.getDescriptionHeight(withWidth: width - 18) // 8 Padding on Left & Right + 2 to be safe
-        print(descriptionHeight)
         return titleTextHeight + 8 + descriptionHeight + 8 // 8 as Top & Bottom Margin
     }
     
