@@ -146,9 +146,10 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     private func setupView() {
         
-        self.collectionView?.addSubview(self.activityIndicatorView)
-        self.activityIndicatorView.anchorCenterSuperview()
-        self.activityIndicatorView.startAnimating()
+        // As per requirement removing indicator view during load
+//        self.collectionView?.addSubview(self.activityIndicatorView)
+//        self.activityIndicatorView.anchorCenterSuperview()
+//        self.activityIndicatorView.startAnimating()
         self.collectionView?.backgroundColor = Constants.articleBackgroundColor
         
         self.setupNavBar()
