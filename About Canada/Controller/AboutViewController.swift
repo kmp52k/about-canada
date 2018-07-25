@@ -6,152 +6,207 @@
 //  Copyright © 2018 PwC. All rights reserved.
 //
 
-import Alamofire
 import UIKit
+import Alamofire
 
 
 // MARK:- AboutViewController
 
-class AboutViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+// Root View Controller for Application Landing Screen
+
+class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
-    let articleCellIdentifier: String = Constants.articleCellIdentifier
-    let errorCellIdentifier: String = Constants.errorCellIdentifier
-    let activity: UIActivityIndicatorView = Utils.shared.activityIndicatorView
+    
+    // MARK:- Public
+    
+    var refresher: UIRefreshControl!
     var navigationTitle: UILabel?
     var aboutError: AboutError?
     var about: About?
     var articleViewModels: [ArticleViewModel] = []
-    var layout: UICollectionViewFlowLayout? { get { return collectionViewLayout as? UICollectionViewFlowLayout } }
     var navBarView: UIView?
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK:- Internal: Inheritance UIView
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.setupView()
-        self.getAboutData()
+        Service.shared.deligate = self
+        Service.shared.getAboutData()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
         super.viewWillTransition(to: size, with: coordinator)
-        self.collectionView?.collectionViewLayout.invalidateLayout()
-        if size.height < size.width { self.navBarView?.isHidden = true }
-        else { self.navBarView?.isHidden = false }
+        coordinator.animate(alongsideTransition: { (_) in
+            // Invalidating active layout to properly set articles accordong to updated orientation
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+            // Hiding navigation bar in case of iPhone device is in Lanscape mode
+            self.navBarView?.isHidden = Utils.shared.getNavBarHidden()
+        }) { (_) in }
     }
     
+    
+    // MARK:- Internal: Inheritance UICollectionView
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if self.aboutError != nil {
-            let errorCell = collectionView.dequeueReusableCell(withReuseIdentifier: errorCellIdentifier, for: indexPath) as! ErrorCell
+            let errorCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.errorCellIdentifier, for: indexPath) as! ErrorCell
             let errorViewModel = ErrorViewModel(error: aboutError!)
             errorCell.aboutError = errorViewModel
             return errorCell
         } else {
-            let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: articleCellIdentifier, for: indexPath) as! ArticleCell
+            let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.articleCellIdentifier, for: indexPath) as! ArticleCell
             articleCell.article = articleViewModels[indexPath.row]
             return articleCell
         }
     }
     
+    
+    // MARK:- Internal: Inheritance UICollectionViewDataSource
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         if self.aboutError != nil { return 1 }
         else {
             return articleViewModels.count
-//            guard let count = about?.rows?.count else { return 0 }
-//            return count
         }
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if self.aboutError == nil {
+            let carousalController = ArticleViewController()
+            carousalController.articleViewModels = articleViewModels
+            carousalController.currentPage = indexPath.row
+            carousalController.modalTransitionStyle = .crossDissolve
+            carousalController.modalPresentationStyle = .overCurrentContext
+            self.present(carousalController, animated: true, completion: nil)
+        }
+    }
+    
+    
+    // MARK:- Internal: Inheritance CollectionViewController
+    
+    override func handleRefresh() {
+        
+        LazyImageView.clearImageCache()
+        Service.shared.getAboutData()
+    }
+    
+    
+    // MARK:- Internal: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = collectionView.frame.height + collectionView.contentOffset.y
-        if self.aboutError != nil { return CGSize(width: collectionView.frame.width, height: height) }
+        if self.aboutError != nil {
+            // Making Error cell full screen size.
+            let height = self.collectionView!.frame.height + collectionView.contentOffset.y - (2 * Constants.articleInsets)
+            return CGSize(width: self.collectionView!.frame.width, height: height)
+        }
         else {
-            return CGSize(width: (collectionView.frame.width / 2) - 21, height: articleViewModels[indexPath.row].descriptionHeight)
+            return CGSize(width: Utils.shared.getArticleCellSize().width, height: Utils.shared.getArticleCellSize().height)
         }
     }
     
     
+    // MARK:- Internal, AboutServiceDeligate
     
-    private func setupView() {
-        self.collectionView?.addSubview(activity)
-        self.activity.anchorCenterSuperview()
-        self.activity.startAnimating()
-        self.collectionView?.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
-        self.collectionView?.backgroundColor = UIColor.white
+    func handleAboutData(aboutResponse: About) {
         
-        self.navigationItem.title = Constants.navBarTitle
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationTitle = {
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-            label.text = Constants.navBarTitle
-            label.textColor = UIColor.white
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 20)
-            return label
-        }()
+        self.clearData() // To handle fresh data from Pull to Refresh
+        self.about = aboutResponse
+        self.navigationTitle?.text = self.about?.title
         self.navigationItem.titleView = self.navigationTitle
-        
-        self.layout?.minimumInteritemSpacing = 0
-        self.layout?.minimumLineSpacing = 0
-        self.layout?.sectionInset = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
-        
-        self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: articleCellIdentifier)
-        self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: errorCellIdentifier)
-        
-    }
-    
-    private func getAboutData() {
-        do {
-            let network = try Utils.shared.isNetworkAvailable()
-            if network {
-                Alamofire.request(Constants.serviceURLString).responseString(completionHandler: { (response) in
-                    self.activity.stopAnimating()
-                    if let dataString = response.value {
-                        self.updateViewWithData(data: dataString)
-                    } else {
-                        print(response.error?.localizedDescription ?? AboutError.serverCallFailure)
-                        self.updateViewWithError(aboutError: AboutError.serverCallFailure)
-                    }
-                })
+        if !(self.about?.rows?.isEmpty)! {
+            for article in (self.about?.rows)! {
+                guard let _ = article.title else { continue } // Ignoring articles without Title
+                let articleViewModel = ArticleViewModel(article: article)
+                self.articleViewModels.append(articleViewModel)
             }
-        } catch AboutError.noNetwork {
-            self.updateViewWithError(aboutError: AboutError.noNetwork)
-        } catch AboutError.invalidJSON {
-            print(Constants.invalidJSONError)
-            self.updateViewWithError(aboutError: AboutError.invalidJSON)
-        } catch {
-            print(#imageLiteral(resourceName: "error").description)
-            self.updateViewWithError(aboutError: AboutError.serverCallFailure)
         }
-    }
-    
-    private func updateViewWithError(aboutError: AboutError) {
-        self.aboutError = aboutError
+        self.navigationItem.rightBarButtonItem?.isEnabled = true // Since data is available enabling navigation to CardsView
+        self.aboutError = nil
         self.collectionView?.reloadData()
     }
     
-    private func updateViewWithData(data: String) {
-        do {
-            self.about = try Utils.shared.parseData(data: data)
-            self.navigationItem.title = self.about?.title
-            if !(self.about?.rows?.isEmpty)! {
-                for article in (self.about?.rows)! {
-                    guard let _ = article.title else { continue }
-                    let articleVM = ArticleViewModel(article: article, size: (self.collectionView?.frame.size)!)
-                    self.articleViewModels.append(articleVM)
-                }
-            }
-            self.collectionView?.reloadData()
-        } catch {
-            print(Constants.invalidJSONError)
-            self.updateViewWithError(aboutError: AboutError.invalidJSON)
+    func handleAboutError(aboutError: AboutError) {
+        
+        self.clearData()
+        self.aboutError = aboutError
+        self.navigationItem.rightBarButtonItem?.isEnabled = false // Since data is not available disabling navigation to CardsView
+        self.collectionView?.reloadData()
+    }
+    
+    
+    // MARK:- Private
+    
+    private func setupView() {
+        
+        // As per requirement removing indicator view during load
+//        self.collectionView?.addSubview(self.activityIndicatorView)
+//        self.activityIndicatorView.anchorCenterSuperview()
+//        self.activityIndicatorView.startAnimating()
+        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
+        
+        self.setupNavBar()
+        
+        self.layout?.minimumInteritemSpacing = Constants.articleInsets
+        self.layout?.minimumLineSpacing = 0
+        self.layout?.sectionInset = UIEdgeInsets(top: Constants.articleInsets, left: Constants.articleInsets, bottom: Constants.articleInsets, right: Constants.articleInsets)
+        
+        self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: Constants.articleCellIdentifier)
+        self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: Constants.errorCellIdentifier)
+        
+        self.refresher = self.getRefreshControl()
+        if #available(iOS 10.0, *) {
+            self.collectionView?.refreshControl = self.refresher
+        } else {
+            // Fallback on earlier versions
+            self.collectionView?.addSubview(self.refresher)
         }
+    }
+    
+    private func setupNavBar() {
+        
+        navigationController?.navigationBar.tintColor = .white
+        self.navBarView?.isHidden = Utils.shared.getNavBarHidden()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationTitle = {
+            let label = UILabel()
+            label.text = Constants.navBarTitle
+            label.textColor = UIColor.white
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: Constants.navigationTitleFontSize)
+            return label
+        }()
+        let cardsButton = UIButton(type: .system)
+        cardsButton.contentMode = .scaleAspectFill
+        cardsButton.addTarget(self, action: #selector(handleCardsButton), for: .touchUpInside)
+        cardsButton.setImage(Constants.cardsImage, for: .normal)
+        self.navigationItem.titleView = self.navigationTitle
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cardsButton)
+        
+        // Disabling Navigation to CardsView untill the data is available
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    private func clearData() {
+        
+        if self.activityIndicatorView.isAnimating { self.activityIndicatorView.stopAnimating() }
+        if self.refresher.isRefreshing { self.refresher.endRefreshing() }
+        self.articleViewModels.removeAll()
+    }
+    
+    @objc private func handleCardsButton() {
+        
+        let layout = PintrestLayout() // Custom layout for CardsView
+        let cardsController = PintrestViewController(collectionViewLayout: layout)
+        cardsController.articleViewModels = self.articleViewModels
+        self.navigationController?.pushViewController(cardsController, animated: true)
     }
     
 }
