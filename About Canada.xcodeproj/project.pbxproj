@@ -25,12 +25,23 @@
 		5B60F62521023D9F008B6755 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60F62421023D9F008B6755 /* ArticleViewController.swift */; };
 		5B60F62721024173008B6755 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60F62621024173008B6755 /* CollectionViewController.swift */; };
 		5B6617142103EF0D002F87AA /* AboutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6617132103EF0D002F87AA /* AboutError.swift */; };
+		5B6D1A782108466700BF39CD /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D1A772108466700BF39CD /* ModelTests.swift */; };
 		5B6D931C21037A9B000AB585 /* CarousalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D931B21037A9B000AB585 /* CarousalCellView.swift */; };
 		5B6FA01520FE666F00737E8A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Utils.swift */; };
 		5B86E107210116F900DA5179 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E106210116F900DA5179 /* Extensions.swift */; };
 		5B86E1092101192500DA5179 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E1082101192500DA5179 /* Service.swift */; };
 		8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5B6D1A71210845C000BF39CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B46347820FDEE4200995DDF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B46347F20FDEE4200995DDF;
+			remoteInfo = "About Canada";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_About_Canada.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +66,9 @@
 		5B60F62421023D9F008B6755 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		5B60F62621024173008B6755 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		5B6617132103EF0D002F87AA /* AboutError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutError.swift; sourceTree = "<group>"; };
+		5B6D1A6C210845C000BF39CD /* About CanadaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "About CanadaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B6D1A70210845C000BF39CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B6D1A772108466700BF39CD /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		5B6D931B21037A9B000AB585 /* CarousalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarousalCellView.swift; sourceTree = "<group>"; };
 		5B6FA01420FE666F00737E8A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5B86E106210116F900DA5179 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -68,6 +82,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B6D1A69210845C000BF39CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				5B46348220FDEE4200995DDF /* About Canada */,
+				5B6D1A6D210845C000BF39CD /* About CanadaTests */,
 				5B46348120FDEE4200995DDF /* Products */,
 				24FA73BCE0405F8ACA8EF085 /* Pods */,
 				6B9B6EF3FA575B61EA75BD56 /* Frameworks */,
@@ -110,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				5B46348020FDEE4200995DDF /* About Canada.app */,
+				5B6D1A6C210845C000BF39CD /* About CanadaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +194,23 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		5B6D1A6D210845C000BF39CD /* About CanadaTests */ = {
+			isa = PBXGroup;
+			children = (
+				5B6D1A762108461800BF39CD /* Cases */,
+				5B6D1A70210845C000BF39CD /* Info.plist */,
+			);
+			path = "About CanadaTests";
+			sourceTree = "<group>";
+		};
+		5B6D1A762108461800BF39CD /* Cases */ = {
+			isa = PBXGroup;
+			children = (
+				5B6D1A772108466700BF39CD /* ModelTests.swift */,
+			);
+			path = Cases;
+			sourceTree = "<group>";
+		};
 		6B9B6EF3FA575B61EA75BD56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +241,24 @@
 			productReference = 5B46348020FDEE4200995DDF /* About Canada.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5B6D1A6B210845C000BF39CD /* About CanadaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B6D1A75210845C000BF39CD /* Build configuration list for PBXNativeTarget "About CanadaTests" */;
+			buildPhases = (
+				5B6D1A68210845C000BF39CD /* Sources */,
+				5B6D1A69210845C000BF39CD /* Frameworks */,
+				5B6D1A6A210845C000BF39CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B6D1A72210845C000BF39CD /* PBXTargetDependency */,
+			);
+			name = "About CanadaTests";
+			productName = "About CanadaTests";
+			productReference = 5B6D1A6C210845C000BF39CD /* About CanadaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -214,6 +272,11 @@
 					5B46347F20FDEE4200995DDF = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
+					};
+					5B6D1A6B210845C000BF39CD = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+						TestTargetID = 5B46347F20FDEE4200995DDF;
 					};
 				};
 			};
@@ -231,6 +294,7 @@
 			projectRoot = "";
 			targets = (
 				5B46347F20FDEE4200995DDF /* About Canada */,
+				5B6D1A6B210845C000BF39CD /* About CanadaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,6 +306,13 @@
 			files = (
 				5B46348E20FDEE4300995DDF /* LaunchScreen.storyboard in Resources */,
 				5B46348B20FDEE4300995DDF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B6D1A6A210845C000BF39CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +387,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B6D1A68210845C000BF39CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B6D1A782108466700BF39CD /* ModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B6D1A72210845C000BF39CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B46347F20FDEE4200995DDF /* About Canada */;
+			targetProxy = 5B6D1A71210845C000BF39CD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5B46348C20FDEE4300995DDF /* LaunchScreen.storyboard */ = {
@@ -481,6 +568,41 @@
 			};
 			name = Release;
 		};
+		5B6D1A73210845C000BF39CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "About CanadaTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-CanadaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/About Canada.app/About Canada";
+			};
+			name = Debug;
+		};
+		5B6D1A74210845C000BF39CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "About CanadaTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-CanadaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/About Canada.app/About Canada";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -498,6 +620,15 @@
 			buildConfigurations = (
 				5B46349320FDEE4300995DDF /* Debug */,
 				5B46349420FDEE4300995DDF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B6D1A75210845C000BF39CD /* Build configuration list for PBXNativeTarget "About CanadaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B6D1A73210845C000BF39CD /* Debug */,
+				5B6D1A74210845C000BF39CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
