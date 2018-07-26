@@ -26,6 +26,7 @@
 		5B60F62721024173008B6755 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60F62621024173008B6755 /* CollectionViewController.swift */; };
 		5B6617142103EF0D002F87AA /* AboutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6617132103EF0D002F87AA /* AboutError.swift */; };
 		5B6D1A782108466700BF39CD /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D1A772108466700BF39CD /* ModelTests.swift */; };
+		5B6D1A9A2108D90C00BF39CD /* AboutViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D1A992108D90C00BF39CD /* AboutViewLayout.swift */; };
 		5B6D931C21037A9B000AB585 /* CarousalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D931B21037A9B000AB585 /* CarousalCellView.swift */; };
 		5B6FA01520FE666F00737E8A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Utils.swift */; };
 		5B86E107210116F900DA5179 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E106210116F900DA5179 /* Extensions.swift */; };
@@ -69,6 +70,7 @@
 		5B6D1A6C210845C000BF39CD /* About CanadaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "About CanadaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6D1A70210845C000BF39CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6D1A772108466700BF39CD /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		5B6D1A992108D90C00BF39CD /* AboutViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewLayout.swift; sourceTree = "<group>"; };
 		5B6D931B21037A9B000AB585 /* CarousalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarousalCellView.swift; sourceTree = "<group>"; };
 		5B6FA01420FE666F00737E8A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5B86E106210116F900DA5179 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2FA2A520FE445B00B5BED9 /* ArticleCellView.swift */,
+				5B6D1A992108D90C00BF39CD /* AboutViewLayout.swift */,
 				5B5FC1FE2105EEA400B86973 /* CardCellView.swift */,
 				5B6D931B21037A9B000AB585 /* CarousalCellView.swift */,
 				5B3591D120FF72150015AC5C /* ErrorCellView.swift */,
@@ -371,6 +374,7 @@
 				5B6617142103EF0D002F87AA /* AboutError.swift in Sources */,
 				5B2FA2A820FE447600B5BED9 /* ArticleModel.swift in Sources */,
 				5B60F62721024173008B6755 /* CollectionViewController.swift in Sources */,
+				5B6D1A9A2108D90C00BF39CD /* AboutViewLayout.swift in Sources */,
 				5B3591D220FF72150015AC5C /* ErrorCellView.swift in Sources */,
 				5B2FA2AC20FE44CD00B5BED9 /* AboutViewController.swift in Sources */,
 				5B6D931C21037A9B000AB585 /* CarousalCellView.swift in Sources */,

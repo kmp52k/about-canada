@@ -24,6 +24,8 @@ class CardCell: ArticleCell {
         self.articleName.textColor = Constants.carousalNameColor
         self.articleName.textAlignment = .center
         
+        self.articleImage.image = nil
+        
         self.descriptionText.text = self.article.description
         self.descriptionText.textColor = Constants.carousalDescriptionColor
         self.descriptionText.textAlignment = .center

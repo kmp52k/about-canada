@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import Alamofire
 
 
 // MARK:- AboutViewController
 
 // Root View Controller for Application Landing Screen
 
-class AboutViewController: CollectionViewController, AboutServiceDeligate {
+class AboutViewController: UICollectionViewController, AboutLayoutDelegate, AboutServiceDeligate {
     
     
     // MARK:- Public
@@ -25,6 +24,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     var about: About?
     var articleViewModels: [ArticleViewModel] = []
     var navBarView: UIView?
+    var layout: AboutViewLayout?
     
     
     // MARK:- Internal: Inheritance UIView
@@ -33,6 +33,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         
         super.viewDidLoad()
         self.setupView()
+        
         Service.shared.deligate = self
         Service.shared.getAboutData()
     }
@@ -41,8 +42,6 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (_) in
-            // Invalidating active layout to properly set articles accordong to updated orientation
-            self.collectionView?.collectionViewLayout.invalidateLayout()
             // Hiding navigation bar in case of iPhone device is in Lanscape mode
             self.navBarView?.isHidden = Utils.shared.getNavBarHidden()
         }) { (_) in }
@@ -79,6 +78,7 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if self.aboutError == nil {
+            // Loading carousal view
             let carousalController = ArticleViewController()
             carousalController.articleViewModels = articleViewModels
             carousalController.currentPage = indexPath.row
@@ -91,24 +91,28 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     // MARK:- Internal: Inheritance CollectionViewController
     
-    override func handleRefresh() {
+    @objc func handleRefresh() {
         
         LazyImageView.clearImageCache()
         Service.shared.getAboutData()
     }
     
     
-    // MARK:- Internal: UICollectionViewDelegate
+    // MARK:- Internal: ArticleLayoutDelegate
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(collectionView: UICollectionView, heightForCellAtIndexPath indexPath: IndexPath, width: CGFloat) -> CGFloat {
         
         if self.aboutError != nil {
             // Making Error cell full screen size.
-            let height = self.collectionView!.frame.height + collectionView.contentOffset.y - (2 * Constants.articleInsets)
-            return CGSize(width: self.collectionView!.frame.width, height: height)
+            return self.collectionView!.frame.width
         }
         else {
-            return CGSize(width: Utils.shared.getArticleCellSize().width, height: Utils.shared.getArticleCellSize().height)
+            // Left & right padding + image width + 2 as safety margin
+            let approxWidth = width - 8 - 100 - 12 - 8 - 2
+            // Top & bottom padding + title height + 2 as safety margin
+            let cardHeight = articleViewModels[indexPath.row].getDescriptionHeight(withWidth: approxWidth) + 8 + 20 + 16 + 2
+            // If article description is too small then take Image height
+            return max(cardHeight, 120)
         }
     }
     
@@ -146,17 +150,15 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     private func setupView() {
         
-        // As per requirement removing indicator view during load
-//        self.collectionView?.addSubview(self.activityIndicatorView)
-//        self.activityIndicatorView.anchorCenterSuperview()
-//        self.activityIndicatorView.startAnimating()
-        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
+        self.collectionView?.backgroundColor = Constants.aboutBackgroundColor
+        
+        self.layout = collectionView?.collectionViewLayout as? AboutViewLayout
+        self.layout?.delegate = self
+        self.layout?.minimumInteritemSpacing = Constants.articleInsets
+        self.layout?.minimumLineSpacing = Constants.articleInsets
+        self.layout?.sectionInset = UIEdgeInsets(top: Constants.articleInsets, left: Constants.articleInsets, bottom: Constants.articleInsets, right: Constants.articleInsets)
         
         self.setupNavBar()
-        
-        self.layout?.minimumInteritemSpacing = Constants.articleInsets
-        self.layout?.minimumLineSpacing = 0
-        self.layout?.sectionInset = UIEdgeInsets(top: Constants.articleInsets, left: Constants.articleInsets, bottom: Constants.articleInsets, right: Constants.articleInsets)
         
         self.collectionView?.register(ArticleCell.self, forCellWithReuseIdentifier: Constants.articleCellIdentifier)
         self.collectionView?.register(ErrorCell.self, forCellWithReuseIdentifier: Constants.errorCellIdentifier)
@@ -196,9 +198,15 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
     
     private func clearData() {
         
-        if self.activityIndicatorView.isAnimating { self.activityIndicatorView.stopAnimating() }
         if self.refresher.isRefreshing { self.refresher.endRefreshing() }
         self.articleViewModels.removeAll()
+    }
+    
+    open func getRefreshControl() -> UIRefreshControl {
+        
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return rc
     }
     
     @objc private func handleCardsButton() {
@@ -208,5 +216,4 @@ class AboutViewController: CollectionViewController, AboutServiceDeligate {
         cardsController.articleViewModels = self.articleViewModels
         self.navigationController?.pushViewController(cardsController, animated: true)
     }
-    
 }
