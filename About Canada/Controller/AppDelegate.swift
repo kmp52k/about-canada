@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.setupRootViewController()
+        application.statusBarStyle = .lightContent
         return true
     }
 
@@ -39,6 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    
+    // MARK:- Private: setupRootViewController
+    
+    private func setupRootViewController() {
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.makeKeyAndVisible()
+        
+        UINavigationBar.appearance().barTintColor = Constants.navigationBarColor
+        let statusBarView = UIView()
+        statusBarView.backgroundColor = Constants.statusBarColor
+        let aboutController = AboutViewController()
+        self.window?.rootViewController = UINavigationController(rootViewController: aboutController)
+        self.window?.addSubview(statusBarView)
+        statusBarView.anchor(self.window?.topAnchor, left: self.window?.leftAnchor, bottom: nil, right: self.window?.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
+        aboutController.navBarView = statusBarView
     }
 
 
