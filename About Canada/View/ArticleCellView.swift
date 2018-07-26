@@ -48,12 +48,6 @@ class ArticleCell: UICollectionViewCell {
         return view
     }()
     
-    let dividerLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Constants.articleDeviderLine
-        return view
-    }()
-    
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -68,20 +62,18 @@ class ArticleCell: UICollectionViewCell {
         
     func setupCellView() {
         
+        self.backgroundColor = Constants.articleBackgroundColor
         self.articleName.text = self.article.title
         self.descriptionText.text = self.article.description
         self.addSubview(self.articleName)
         self.addSubview(self.articleImage)
         self.addSubview(self.descriptionText)
-        self.addSubview(self.dividerLineView)
 
         self.articleImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: Constants.articleImageSize, heightConstant: Constants.articleImageSize)
         
         self.articleName.anchor(articleImage.topAnchor, left: articleImage.rightAnchor, bottom: nil, right: self.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 20)
         
         self.descriptionText.anchor(self.articleName.bottomAnchor, left: self.articleName.leftAnchor, bottom: nil, right: self.articleName.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        
-        self.dividerLineView.anchor(nil, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 1, rightConstant: 0, widthConstant: 0, heightConstant: 1)
         
         // Try fetching Image if Article has URL
         if !self.article.imageURL.isEmpty {

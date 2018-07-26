@@ -42,19 +42,12 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransition(to: size, with: coordinator)
-        self.collectionView?.reloadData()
         coordinator.animate(alongsideTransition: { (_) in
-            
-            // Clearing custom layout cache to rearrange cards according to updated device orientation
-            self.layout?.attributesCache.removeAll()
-            // Invalidating active layout to properly set articles accordong to updated orientation
-            self.collectionView?.collectionViewLayout.invalidateLayout()
-            // Giving minimum 20 milli sec to complete recreation of custom layout according to updated cards' dimensions
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
-                self.collectionView?.reloadData()
-            }
+            // Unlike UICollectionViewFlowLayout the UICollectionViewLayout does not respond to orientation change by triggering reload will clear attributes cache.
+            self.collectionView?.reloadData()
         }) { (_) in }
-        
+        // Reseting layour for proper image rendering
+        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     

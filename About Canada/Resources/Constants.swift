@@ -38,13 +38,14 @@ struct Constants {
     static let navigationTitleFontSize = CGFloat(20)
     static let navigationBarColor = UIColor(red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
     static let statusBarColor = UIColor(red: 194/255, green: 31/255, blue: 31/255, alpha: 1)
+    static let aboutBackgroundColor = UIColor.white
     static let articleBackgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     static let articleNameColor = UIColor(red: 152/255, green: 0, blue: 0, alpha: 1)
     static let articleNameFont = UIFont.boldSystemFont(ofSize: 18)
     static let articleNameLines = 0
     static let articleDescriptionColor = UIColor(red: 65/255, green: 65/255, blue: 64/255, alpha: 1)
     static let articleDescriptionFont = UIFont.italicSystemFont(ofSize: 14)
-    static let articleDescriptionLines = 4
+    static let articleDescriptionLines = 0
     static let articleImageSize = CGFloat(100)
     static let articleDeviderLine = UIColor(red: 152/255, green: 0, blue: 0, alpha: 1)
     static let carousalNameFont = UIFont.italicSystemFont(ofSize: 18)
