@@ -48,7 +48,7 @@ Checkout Podfile for more info.
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1.0+ is required to build Reusable 1.0.0+.
+> CocoaPods 1.1.0+ is required to build.
 
 
 Then, run the following command:
