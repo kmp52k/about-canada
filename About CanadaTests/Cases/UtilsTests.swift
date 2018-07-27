@@ -22,10 +22,10 @@ class UtilsTests: XCTestCase {
         }
     }
     
-    func testInvalidParsing() {
+    func testInvalidJSONParsing() {
         
         do {
-            _ = try Utils.shared.parseData(data: "")
+            _ = try Utils.shared.parseData(data: "{\"title\", \"About Canada\", \"rows\", []}")
             XCTFail()
         } catch {
             XCTAssertEqual(error as! AboutError, AboutError.InvalidJSON)

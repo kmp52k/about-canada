@@ -31,11 +31,8 @@
 		5B6FA01520FE666F00737E8A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Utils.swift */; };
 		5B86E107210116F900DA5179 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E106210116F900DA5179 /* Extensions.swift */; };
 		5B86E1092101192500DA5179 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E1082101192500DA5179 /* Service.swift */; };
-		5BED53F0210A1F98006826D2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53EF210A1F98006826D2 /* ViewModelTests.swift */; };
 		5BED53F2210ABECD006826D2 /* SerivceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F1210ABECD006826D2 /* SerivceTests.swift */; };
 		5BED53F4210AC3AD006826D2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F3210AC3AD006826D2 /* UtilsTests.swift */; };
-		5BED53F6210ADD95006826D2 /* CellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F5210ADD95006826D2 /* CellsTests.swift */; };
-		5BED53F8210AE7F3006826D2 /* CotrollersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F7210AE7F3006826D2 /* CotrollersTests.swift */; };
 		8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,11 +77,8 @@
 		5B6FA01420FE666F00737E8A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5B86E106210116F900DA5179 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B86E1082101192500DA5179 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		5BED53EF210A1F98006826D2 /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		5BED53F1210ABECD006826D2 /* SerivceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerivceTests.swift; sourceTree = "<group>"; };
 		5BED53F3210AC3AD006826D2 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
-		5BED53F5210ADD95006826D2 /* CellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsTests.swift; sourceTree = "<group>"; };
-		5BED53F7210AE7F3006826D2 /* CotrollersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CotrollersTests.swift; sourceTree = "<group>"; };
 		A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.release.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,12 +213,9 @@
 		5B6D1A762108461800BF39CD /* Cases */ = {
 			isa = PBXGroup;
 			children = (
-				5BED53F5210ADD95006826D2 /* CellsTests.swift */,
-				5BED53F7210AE7F3006826D2 /* CotrollersTests.swift */,
 				5B6D1A772108466700BF39CD /* ModelTests.swift */,
 				5BED53F1210ABECD006826D2 /* SerivceTests.swift */,
 				5BED53F3210AC3AD006826D2 /* UtilsTests.swift */,
-				5BED53EF210A1F98006826D2 /* ViewModelTests.swift */,
 			);
 			path = Cases;
 			sourceTree = "<group>";
@@ -289,11 +280,11 @@
 				TargetAttributes = {
 					5B46347F20FDEE4200995DDF = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					5B6D1A6B210845C000BF39CD = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 5B46347F20FDEE4200995DDF;
 					};
 				};
@@ -411,10 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BED53F2210ABECD006826D2 /* SerivceTests.swift in Sources */,
-				5BED53F0210A1F98006826D2 /* ViewModelTests.swift in Sources */,
 				5B6D1A782108466700BF39CD /* ModelTests.swift in Sources */,
-				5BED53F6210ADD95006826D2 /* CellsTests.swift in Sources */,
-				5BED53F8210AE7F3006826D2 /* CotrollersTests.swift in Sources */,
 				5BED53F4210AC3AD006826D2 /* UtilsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,15 +546,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 299VAT3WU6;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-Canada";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c48a030b-185b-483f-8110-31ec7f12e38b";
-				PROVISIONING_PROFILE_SPECIFIER = "PwC Internal Apps Dev Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -578,15 +566,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 299VAT3WU6;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-Canada";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c48a030b-185b-483f-8110-31ec7f12e38b";
-				PROVISIONING_PROFILE_SPECIFIER = "PwC Internal Apps Dev Profile";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -597,8 +585,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 8ZQ4W3G8X8;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "About CanadaTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-CanadaTests";
@@ -615,8 +603,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 8ZQ4W3G8X8;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "About CanadaTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-CanadaTests";
