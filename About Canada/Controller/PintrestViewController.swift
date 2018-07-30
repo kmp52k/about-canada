@@ -14,7 +14,7 @@ import UIKit
 
 // Pintrest Cards View controller
 
-class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate {
+class PintrestViewController: UICollectionViewController {
     
     
     // MARK:- Public
@@ -66,7 +66,21 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
     }
     
     
-    // MARK:- Internal: PintrestLayoutDeligate
+    // MARK:- Private
+    
+    private func setupView() {
+        
+        self.layout?.delegate = self
+        self.collectionView?.contentInset = UIEdgeInsets(top: Constants.articleInsets / 2, left: Constants.articleInsets / 2, bottom: Constants.articleInsets / 2, right: Constants.articleInsets / 2)
+        self.collectionView?.register(CardCell.self, forCellWithReuseIdentifier: Constants.cardCellIdentifier)
+        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
+    }
+}
+
+
+// MARK:- PintrestLayoutDelegate
+
+extension PintrestViewController: PintrestLayoutDelegate {
     
     func collectionView(collectionView: UICollectionView, heightForImageAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
         
@@ -85,16 +99,5 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
         let article = self.articleViewModels[indexPath.row]
         let descriptionHeight = article.getDescriptionHeight(withWidth: width - 18) // 8 Padding on Left & Right + 2 to be safe
         return titleTextHeight + 8 + descriptionHeight + 8 // 8 as Top & Bottom Margin
-    }
-    
-    
-    // MARK:- Private
-    
-    private func setupView() {
-        
-        self.layout?.delegate = self
-        self.collectionView?.contentInset = UIEdgeInsets(top: Constants.articleInsets / 2, left: Constants.articleInsets / 2, bottom: Constants.articleInsets / 2, right: Constants.articleInsets / 2)
-        self.collectionView?.register(CardCell.self, forCellWithReuseIdentifier: Constants.cardCellIdentifier)
-        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
     }
 }

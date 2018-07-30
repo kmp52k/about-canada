@@ -10,10 +10,10 @@ import Alamofire
 import Foundation
 
 
-// MARK:- Protocol: AboutServiceDeligate
+// MARK:- Protocol: AboutServiceDelegate
 
-protocol AboutServiceDeligate: class {
-    func handleAboutData(aboutResponse: About) -> Void
+protocol AboutServiceDelegate: class {
+    func handleAboutData(aboutResponse: AboutViewModel) -> Void
     func handleAboutError(aboutError: AboutError) -> Void
 }
 
@@ -25,7 +25,7 @@ class Service {
     // Shared Instance
     static let shared = Service()
     
-    var deligate: AboutServiceDeligate?
+    var delegate: AboutServiceDelegate?
     
     
     // MARK:- Public: getAboutData
@@ -39,17 +39,17 @@ class Service {
                         self.parseJSONString(data: dataString)
                     } else {
                         print(response.error?.localizedDescription ?? AboutError.ServerCallFailure)
-                        self.deligate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
+                        self.delegate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
                     }
                 })
             }
         } catch AboutError.NoNetwork {
-            self.deligate?.handleAboutError(aboutError: AboutError.NoNetwork)
+            self.delegate?.handleAboutError(aboutError: AboutError.NoNetwork)
         } catch AboutError.InvalidJSON {
-            self.deligate?.handleAboutError(aboutError: AboutError.InvalidJSON)
+            self.delegate?.handleAboutError(aboutError: AboutError.InvalidJSON)
         } catch {
             print(#imageLiteral(resourceName: "error").description)
-            self.deligate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
+            self.delegate?.handleAboutError(aboutError: AboutError.ServerCallFailure)
         }
     }
     
@@ -61,9 +61,10 @@ class Service {
     private func parseJSONString(data: String) {
         do {
             let aboutData = try Utils.shared.parseData(data: data)
-            self.deligate?.handleAboutData(aboutResponse: aboutData)
+            let aboutViewModel = AboutViewModel(about: aboutData)
+            self.delegate?.handleAboutData(aboutResponse: aboutViewModel)
         } catch {
-            self.deligate?.handleAboutError(aboutError: AboutError.InvalidJSON)
+            self.delegate?.handleAboutError(aboutError: AboutError.InvalidJSON)
         }
     }
 }

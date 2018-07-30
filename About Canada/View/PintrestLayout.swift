@@ -28,9 +28,9 @@
 import UIKit
 
 
-// MARK:- Protocol: PintrestLayoutDeligate
+// MARK:- Protocol: PintrestLayoutDelegate
 
-protocol PintrestLayoutDeligate: class {
+protocol PintrestLayoutDelegate: class {
     func collectionView(collectionView: UICollectionView, heightForImageAt indexPath: IndexPath, with width: CGFloat) -> CGFloat
     func collectionView(collectionView: UICollectionView, heightForDescriptionAt indexPath: IndexPath, with width: CGFloat) -> CGFloat
 }
@@ -40,7 +40,7 @@ protocol PintrestLayoutDeligate: class {
 
 class PintrestLayout: UICollectionViewLayout {
 
-    var delegate: PintrestLayoutDeligate?
+    var delegate: PintrestLayoutDelegate?
     
     private var attributesCache = [PinterestLayoutAttributes]() // Caching Attributes to prevent recurrent calculations in same orientation
     private var cellPadding: CGFloat = Constants.articleInsets / 2

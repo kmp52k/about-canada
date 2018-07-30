@@ -71,7 +71,7 @@ class ArticleCell: UICollectionViewCell {
 
         self.articleImage.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 8, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: Constants.articleImageSize, heightConstant: Constants.articleImageSize)
         
-        self.articleName.anchor(articleImage.topAnchor, left: articleImage.rightAnchor, bottom: nil, right: self.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 20)
+        self.articleName.anchor(self.articleImage.topAnchor, left: self.articleImage.rightAnchor, bottom: nil, right: self.rightAnchor, topConstant: 0, leftConstant: 12, bottomConstant: 8, rightConstant: 8, widthConstant: 0, heightConstant: 20)
         
         self.descriptionText.anchor(self.articleName.bottomAnchor, left: self.articleName.leftAnchor, bottom: nil, right: self.articleName.rightAnchor, topConstant: 8, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         

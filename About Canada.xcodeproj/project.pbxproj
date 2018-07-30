@@ -31,6 +31,7 @@
 		5B6FA01520FE666F00737E8A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6FA01420FE666F00737E8A /* Utils.swift */; };
 		5B86E107210116F900DA5179 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E106210116F900DA5179 /* Extensions.swift */; };
 		5B86E1092101192500DA5179 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B86E1082101192500DA5179 /* Service.swift */; };
+		5BD50F04210F18380073126E /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD50F03210F18380073126E /* AboutViewModel.swift */; };
 		5BED53F2210ABECD006826D2 /* SerivceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F1210ABECD006826D2 /* SerivceTests.swift */; };
 		5BED53F4210AC3AD006826D2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED53F3210AC3AD006826D2 /* UtilsTests.swift */; };
 		8A3F3EA562BD00EA3CCF6825 /* Pods_About_Canada.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5046D2DE38525D98C9FE941C /* Pods_About_Canada.framework */; };
@@ -77,6 +78,7 @@
 		5B6FA01420FE666F00737E8A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5B86E106210116F900DA5179 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B86E1082101192500DA5179 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		5BD50F03210F18380073126E /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		5BED53F1210ABECD006826D2 /* SerivceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerivceTests.swift; sourceTree = "<group>"; };
 		5BED53F3210AC3AD006826D2 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		A495720DEAE9159C2B388EFF /* Pods-About Canada.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-About Canada.release.xcconfig"; path = "Pods/Target Support Files/Pods-About Canada/Pods-About Canada.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 		5B4634C420FE1B3800995DDF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				5BD50F03210F18380073126E /* AboutViewModel.swift */,
 				5B2FA2A920FE44AC00B5BED9 /* ArticleViewModel.swift */,
 				5B3591CD20FF51E80015AC5C /* ErrorViewModel.swift */,
 			);
@@ -276,7 +279,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = PwC;
+				ORGANIZATIONNAME = "Infosys";
 				TargetAttributes = {
 					5B46347F20FDEE4200995DDF = {
 						CreatedOnToolsVersion = 9.2;
@@ -385,6 +388,7 @@
 				5B2FA2AC20FE44CD00B5BED9 /* AboutViewController.swift in Sources */,
 				5B6D931C21037A9B000AB585 /* CarousalCellView.swift in Sources */,
 				5B60F62521023D9F008B6755 /* ArticleViewController.swift in Sources */,
+				5BD50F04210F18380073126E /* AboutViewModel.swift in Sources */,
 				5B2FA2AA20FE44AC00B5BED9 /* ArticleViewModel.swift in Sources */,
 				5B6FA01520FE666F00737E8A /* Utils.swift in Sources */,
 				5B86E107210116F900DA5179 /* Extensions.swift in Sources */,
@@ -551,7 +555,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-Canada";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.infosys.mobility.About-Canada";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -571,7 +575,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/About Canada/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pwc.us.mobility.About-Canada";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.infosys.mobility.About-Canada";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

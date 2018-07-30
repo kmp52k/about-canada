@@ -10,7 +10,7 @@ import XCTest
 
 @testable import About_Canada
 
-class SerivceTests: XCTestCase, AboutServiceDeligate {
+class SerivceTests: XCTestCase, AboutServiceDelegate {
     
     private var serviceDataExpectation: XCTestExpectation!
     private var response: About!

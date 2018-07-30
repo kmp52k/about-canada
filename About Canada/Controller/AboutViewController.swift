@@ -13,7 +13,7 @@ import UIKit
 
 // Root View Controller for Application Landing Screen
 
-class AboutViewController: UICollectionViewController, AboutLayoutDelegate, AboutServiceDeligate {
+class AboutViewController: UICollectionViewController {
     
     
     // MARK:- Public
@@ -21,8 +21,7 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
     var refresher: UIRefreshControl!
     var navigationTitle: UILabel?
     var aboutError: AboutError?
-    var about: About?
-    var articleViewModels: [ArticleViewModel] = []
+    var about: AboutViewModel?
     var navBarView: UIView?
     var layout: AboutViewLayout?
     
@@ -34,7 +33,7 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
         super.viewDidLoad()
         self.setupView()
         
-        Service.shared.deligate = self
+        Service.shared.delegate = self
         Service.shared.getAboutData()
     }
     
@@ -59,7 +58,7 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
             return errorCell
         } else {
             let articleCell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.articleCellIdentifier, for: indexPath) as! ArticleCell
-            articleCell.article = articleViewModels[indexPath.row]
+            articleCell.article = self.about?.rows[indexPath.row]
             return articleCell
         }
     }
@@ -71,7 +70,7 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
         
         if self.aboutError != nil { return 1 }
         else {
-            return articleViewModels.count
+            return self.about?.rows.count ?? 0
         }
     }
     
@@ -80,69 +79,12 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
         if self.aboutError == nil {
             // Loading carousal view
             let carousalController = ArticleViewController()
-            carousalController.articleViewModels = articleViewModels
+            carousalController.articleViewModels = about?.rows ?? []
             carousalController.currentPage = indexPath.row
             carousalController.modalTransitionStyle = .crossDissolve
             carousalController.modalPresentationStyle = .overCurrentContext
             self.present(carousalController, animated: true, completion: nil)
         }
-    }
-    
-    
-    // MARK:- Internal: Inheritance CollectionViewController
-    
-    @objc func handleRefresh() {
-        
-        LazyImageView.clearImageCache()
-        Service.shared.getAboutData()
-    }
-    
-    
-    // MARK:- Internal: ArticleLayoutDelegate
-    
-    func collectionView(collectionView: UICollectionView, heightForCellAtIndexPath indexPath: IndexPath, width: CGFloat) -> CGFloat {
-        
-        if self.aboutError != nil {
-            // Making Error cell full screen size.
-            return self.collectionView!.frame.width
-        }
-        else {
-            // Left & right padding + image width + 2 as safety margin
-            let approxWidth = width - 8 - 100 - 12 - 8 - 2
-            // Top & bottom padding + title height + 2 as safety margin
-            let cardHeight = articleViewModels[indexPath.row].getDescriptionHeight(withWidth: approxWidth) + 8 + 20 + 16 + 2
-            // If article description is too small then take Image height
-            return max(cardHeight, 120)
-        }
-    }
-    
-    
-    // MARK:- Internal, AboutServiceDeligate
-    
-    func handleAboutData(aboutResponse: About) {
-        
-        self.clearData() // To handle fresh data from Pull to Refresh
-        self.about = aboutResponse
-        self.navigationTitle?.text = self.about?.title
-        self.navigationItem.titleView = self.navigationTitle
-        if !(self.about?.rows?.isEmpty)! {
-            for article in (self.about?.rows)! {
-                guard let _ = article.title else { continue } // Ignoring articles without Title
-                let articleViewModel = ArticleViewModel(article: article)
-                self.articleViewModels.append(articleViewModel)
-            }
-        }
-        self.navigationItem.rightBarButtonItem?.isEnabled = true // Since data is available enabling navigation to CardsView
-        self.aboutError = nil
-        self.collectionView?.reloadData()
-    }
-    
-    func handleAboutError(aboutError: AboutError) {
-        
-        self.clearData()
-        self.aboutError = aboutError
-        self.navigationItem.rightBarButtonItem?.isEnabled = false // Since data is not available disabling navigation to CardsView
-        self.collectionView?.reloadData()
     }
     
     
@@ -199,21 +141,73 @@ class AboutViewController: UICollectionViewController, AboutLayoutDelegate, Abou
     private func clearData() {
         
         if self.refresher.isRefreshing { self.refresher.endRefreshing() }
-        self.articleViewModels.removeAll()
+        self.about = nil
     }
     
-    open func getRefreshControl() -> UIRefreshControl {
+    private func getRefreshControl() -> UIRefreshControl {
         
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return rc
     }
     
+    @objc private func handleRefresh() {
+        
+        Service.shared.getAboutData()
+    }
+    
     @objc private func handleCardsButton() {
         
         let layout = PintrestLayout() // Custom layout for CardsView
         let cardsController = PintrestViewController(collectionViewLayout: layout)
-        cardsController.articleViewModels = self.articleViewModels
+        cardsController.articleViewModels = self.about?.rows ?? []
         self.navigationController?.pushViewController(cardsController, animated: true)
+    }
+}
+
+
+// MARK:- AboutLayoutDelegate
+
+extension AboutViewController: AboutLayoutDelegate {
+    
+    func collectionView(collectionView: UICollectionView, heightForCellAtIndexPath indexPath: IndexPath, width: CGFloat) -> CGFloat {
+        
+        if self.aboutError != nil {
+            // Making Error cell full screen size.
+            return self.collectionView!.frame.width
+        }
+        else {
+            // Left & right padding + image width + 2 as safety margin (8 + 100 + 12 + 8 + 2)
+            let approxWidth = width - 130
+            // Top & bottom padding + title height + 2 as safety margin (8 + 20 + 16 + 2)
+            let cardHeight = (self.about?.rows[indexPath.row].getDescriptionHeight(withWidth: approxWidth))! + 46
+            // If article description is too small then take Image height
+            return max(cardHeight, 120)
+        }
+    }
+}
+
+
+// MARK:- AboutServiceDeligate
+
+extension AboutViewController: AboutServiceDelegate {
+    
+    func handleAboutData(aboutResponse: AboutViewModel) {
+        
+        self.clearData() // To handle fresh data from Pull to Refresh
+        self.about = aboutResponse
+        self.navigationTitle?.text = self.about?.title
+        self.navigationItem.titleView = self.navigationTitle
+        self.navigationItem.rightBarButtonItem?.isEnabled = true // Since data is available enabling navigation to CardsView
+        self.aboutError = nil
+        self.collectionView?.reloadData()
+    }
+    
+    func handleAboutError(aboutError: AboutError) {
+        
+        self.clearData()
+        self.aboutError = aboutError
+        self.navigationItem.rightBarButtonItem?.isEnabled = false // Since data is not available disabling navigation to CardsView
+        self.collectionView?.reloadData()
     }
 }
