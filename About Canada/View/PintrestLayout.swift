@@ -28,9 +28,9 @@
 import UIKit
 
 
-// MARK:- Protocol: PintrestLayoutDeligate
+// MARK:- Protocol: PintrestLayoutDelegate
 
-protocol PintrestLayoutDeligate: class {
+protocol PintrestLayoutDelegate: class {
     func collectionView(collectionView: UICollectionView, heightForImageAt indexPath: IndexPath, with width: CGFloat) -> CGFloat
     func collectionView(collectionView: UICollectionView, heightForDescriptionAt indexPath: IndexPath, with width: CGFloat) -> CGFloat
 }
@@ -40,23 +40,40 @@ protocol PintrestLayoutDeligate: class {
 
 class PintrestLayout: UICollectionViewLayout {
 
-    var delegate: PintrestLayoutDeligate?
-    var attributesCache = [PinterestLayoutAttributes]() // Caching Attributes to prevent recurrent calculations in same orientation
+    var delegate: PintrestLayoutDelegate?
     
+    private var attributesCache = [PinterestLayoutAttributes]() // Caching Attributes to prevent recurrent calculations in same orientation
     private var cellPadding: CGFloat = Constants.articleInsets / 2
     private var contentHeight: CGFloat = 0.0
-    private var contentWidth: CGFloat = 0.0
+    private var contentWidth: CGFloat {
+        if let collectionView = collectionView {
+            let insets = collectionView.contentInset
+            return collectionView.bounds.width - (insets.left + insets.right)
+        }
+        return 0
+    }
+    private var cachedWidth: CGFloat = 0.0
+    private var numberOfItems = 0
     
     
     // MARK:- Internal: Inheritance UICollectionViewLayout
     
     override func prepare() {
         
-        if attributesCache.isEmpty {
+        guard let collectionView = collectionView else { return }
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
+        
+        // Reset layout on orientation or number of items change
+        if self.contentWidth != self.cachedWidth || self.numberOfItems != numberOfItems {
+            self.attributesCache = []
+            self.contentHeight = 0
+            self.numberOfItems = numberOfItems
+        }
+
+        
+        if self.attributesCache.isEmpty {
+            self.cachedWidth = self.contentWidth
             var xOffsets = [CGFloat]()
-            let insets = self.collectionView!.contentInset
-            self.contentWidth = (self.collectionView!.bounds.width - (insets.left + insets.right))
-            self.contentHeight = 0.0
             let numberOfColumns: CGFloat = Utils.shared.getColumnsForView() // Depends on Portrait/Landscape mode.
             let columnWidth = self.contentWidth / numberOfColumns
             
@@ -75,8 +92,8 @@ class PintrestLayout: UICollectionViewLayout {
                 // Retriving imageHeight & descriptionHeight values from delegate
                 let indexPath = IndexPath(item: item, section: 0)
                 let width = columnWidth - self.cellPadding * 2
-                let imageHeight: CGFloat = (self.delegate?.collectionView(collectionView: collectionView!, heightForImageAt: indexPath, with: width))!
-                let descriptionHeight: CGFloat = (self.delegate?.collectionView(collectionView: collectionView!, heightForDescriptionAt: indexPath, with: width))!
+                let imageHeight: CGFloat = (self.delegate?.collectionView(collectionView: collectionView, heightForImageAt: indexPath, with: width))!
+                let descriptionHeight: CGFloat = (self.delegate?.collectionView(collectionView: collectionView, heightForDescriptionAt: indexPath, with: width))!
                 
                 // Createing cell attributes
                 let height: CGFloat = self.cellPadding + imageHeight + descriptionHeight + self.cellPadding

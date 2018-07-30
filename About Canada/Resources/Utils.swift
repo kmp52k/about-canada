@@ -19,7 +19,7 @@ class Utils {
     
     //MARK:- Private
     
-    private var iPadDevice: Bool = UIDevice.current.userInterfaceIdiom == .pad
+    private let iPadDevice: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
     private init() { }
     

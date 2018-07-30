@@ -14,7 +14,7 @@ import UIKit
 
 // Pintrest Cards View controller
 
-class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate {
+class PintrestViewController: UICollectionViewController {
     
     
     // MARK:- Public
@@ -42,19 +42,12 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransition(to: size, with: coordinator)
-        self.collectionView?.reloadData()
         coordinator.animate(alongsideTransition: { (_) in
-            
-            // Clearing custom layout cache to rearrange cards according to updated device orientation
-            self.layout?.attributesCache.removeAll()
-            // Invalidating active layout to properly set articles accordong to updated orientation
-            self.collectionView?.collectionViewLayout.invalidateLayout()
-            // Giving minimum 20 milli sec to complete recreation of custom layout according to updated cards' dimensions
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
-                self.collectionView?.reloadData()
-            }
+            // Unlike UICollectionViewFlowLayout the UICollectionViewLayout does not respond to orientation change by triggering reload will clear attributes cache.
+            self.collectionView?.reloadData()
         }) { (_) in }
-        
+        // Reseting layour for proper image rendering
+        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     
@@ -73,7 +66,21 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
     }
     
     
-    // MARK:- Internal: PintrestLayoutDeligate
+    // MARK:- Private
+    
+    private func setupView() {
+        
+        self.layout?.delegate = self
+        self.collectionView?.contentInset = UIEdgeInsets(top: Constants.articleInsets / 2, left: Constants.articleInsets / 2, bottom: Constants.articleInsets / 2, right: Constants.articleInsets / 2)
+        self.collectionView?.register(CardCell.self, forCellWithReuseIdentifier: Constants.cardCellIdentifier)
+        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
+    }
+}
+
+
+// MARK:- PintrestLayoutDelegate
+
+extension PintrestViewController: PintrestLayoutDelegate {
     
     func collectionView(collectionView: UICollectionView, heightForImageAt indexPath: IndexPath, with width: CGFloat) -> CGFloat {
         
@@ -92,16 +99,5 @@ class PintrestViewController: UICollectionViewController, PintrestLayoutDeligate
         let article = self.articleViewModels[indexPath.row]
         let descriptionHeight = article.getDescriptionHeight(withWidth: width - 18) // 8 Padding on Left & Right + 2 to be safe
         return titleTextHeight + 8 + descriptionHeight + 8 // 8 as Top & Bottom Margin
-    }
-    
-    
-    // MARK:- Private
-    
-    private func setupView() {
-        
-        self.layout?.delegate = self
-        self.collectionView?.contentInset = UIEdgeInsets(top: Constants.articleInsets / 2, left: Constants.articleInsets / 2, bottom: Constants.articleInsets / 2, right: Constants.articleInsets / 2)
-        self.collectionView?.register(CardCell.self, forCellWithReuseIdentifier: Constants.cardCellIdentifier)
-        self.collectionView?.backgroundColor = Constants.articleBackgroundColor
     }
 }

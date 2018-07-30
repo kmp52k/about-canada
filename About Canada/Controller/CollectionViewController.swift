@@ -18,13 +18,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     // MARK:- Public
     
-    let activityIndicatorView: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        aiv.hidesWhenStopped = true
-        aiv.color = .black
-        return aiv
-    }()
-    
     public init() {
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -35,16 +28,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func getRefreshControl() -> UIRefreshControl {
+    public func getRefreshControl() -> UIRefreshControl {
         
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return rc
     }
     
-    @objc open func handleRefresh() { }
+    @objc public func handleRefresh() { }
     
-    open var layout: UICollectionViewFlowLayout? {
+    public var layout: UICollectionViewFlowLayout? {
         
         get { return collectionViewLayout as? UICollectionViewFlowLayout }
     }
